@@ -1,0 +1,15 @@
+.wrapper {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(100vw, 300px);
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    .createButton{
+
+    }
+  }
+}

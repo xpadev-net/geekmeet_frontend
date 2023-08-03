@@ -14,7 +14,7 @@ const Selector = <T extends string,>({value,options,onChange}:props<T>) => {
   const id = useMemo(uuid,[]);
   return <div className={Styles.wrapper}>
     {options.map((option)=>{
-      return <label className={`${Styles.label} ${value === option.value && Styles.checked}`}>
+      return <label key={option.value} className={`${Styles.label} ${value === option.value && Styles.checked}`}>
         <input className={Styles.input} type="radio" name={id} value={option.value} checked={value === option.value} onChange={()=>onChange(option.value)} />
         <span className={Styles.span}>{option.label}</span>
       </label>
