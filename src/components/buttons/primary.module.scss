@@ -11,6 +11,9 @@
   &:hover{
     background: var(--button-hover);
   }
+  &:focus{
+    outline: 2px solid var(--border-focused);
+  }
   &:disabled{
     background: var(--button-disabled);
   }

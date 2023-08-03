@@ -5,7 +5,7 @@ import Styles from "./page.module.scss"
 import {Selector} from "@/components/selector";
 import {useState} from "react";
 import {RoomType} from "@/@types/types";
-import {PrimaryButton} from "@/components/buttons/primary";
+import {PrimaryButton} from "@/components/buttons";
 
 export default function CreateRoom() {
   const [roomType,setRoomType] = useState<RoomType>("normal")

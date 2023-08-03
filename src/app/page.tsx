@@ -1,6 +1,7 @@
 import Styles from './page.module.scss'
 import {ArrowForwardFilledIcon} from "@xpadev-net/material-icons";
 import Link from "next/link";
+import {SecondaryButton} from "@/components/buttons";
 
 export default function Home() {
   return (
@@ -13,8 +14,10 @@ export default function Home() {
             <ArrowForwardFilledIcon className={Styles.icon}/>
           </button>
         </label>
-        <Link href={"/create"} className={Styles.createRoom}>
-          部屋を作成
+        <Link href={"/create"} className={Styles.create}>
+          <SecondaryButton className={Styles.button}>
+            部屋を作成
+          </SecondaryButton>
         </Link>
       </div>
     </main>
