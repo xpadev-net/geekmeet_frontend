@@ -8,6 +8,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
+      <head>
+        <title>GeekMeet</title>
+      </head>
       <body>{children}</body>
     </html>
   )
