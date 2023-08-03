@@ -1,0 +1,21 @@
+.wrapper{
+  display: flex;
+  gap: 16px;
+  .label{
+    height: 32px;
+    border: solid 2px var(--border-field);
+    flex: 1;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    border-radius: 16px;
+    &.checked{
+      border: solid 2px var(--border-selected);
+    }
+    .input{
+    }
+    .span{
+      padding-left: 16px;
+    }
+  }
+}
