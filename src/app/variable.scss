@@ -1,0 +1,53 @@
+:root{
+  --text-body: #1A1A1C;
+  --text-description: #626264;
+  --text-placeholder: #757578;
+  --text-on-fill: #FFFFFF;
+  --text-link: #0017C1;
+  --text-hover: #000082;
+  --text-active: #000082;
+  --text-visited: #000082;
+  --text-alert: #EC0000;
+  --text-disabled: #949497;
+
+  --icon-label: #1A1A1C;
+  --icon-active: #0017C1;
+  --icon-alert: #EC0000;
+  --icon-disabled: #949497;
+
+  --button-normal: #0017C1;
+  --button-hover: #000082;
+  --button-active: #000082;
+  --button-disabled: #949497;
+
+  --primitive: #1A1A1C;
+  --background: #FFFFFF;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root{
+    --text-body: #FFFFFF;
+    --text-description: #B4B4B7;
+    --text-placeholder: #949497;
+    --text-on-fill: #FFFFFF;
+    --text-link: #7096F8;
+    --text-hover: #9DB7F9;
+    --text-active: #9DB7F9;
+    --text-visited: #9DB7F9;
+    --text-alert: #FF4B36;
+    --text-disabled: #757578;
+
+    --icon-label: #FFFFFF;
+    --icon-active: #7096F8;
+    --icon-alert: #FF4B36;
+    --icon-disabled: #757578;
+
+    --button-normal: #7096F8;
+    --button-hover: #4979F5;
+    --button-active: #4979F5;
+    --button-disabled: #949497;
+
+    --primitive: #FFFFFF;
+    --background: #1A1A1C;
+  }
+}
