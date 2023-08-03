@@ -7,6 +7,7 @@
   border-radius: 16px;
   background: var(--button-normal);
   color: var(--text-on-fill);
+  cursor: pointer;
   &:hover{
     background: var(--button-hover);
   }
