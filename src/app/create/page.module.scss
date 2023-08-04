@@ -4,12 +4,10 @@
   top: 50%;
   transform: translate(-50%, -50%);
   width: min(100vw, 300px);
+  height: min(100vh, 600px);
   .container {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    .createButton{
-
-    }
   }
 }

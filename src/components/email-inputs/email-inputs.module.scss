@@ -1,0 +1,51 @@
+.wrapper{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  border: solid 2px var(--border-field);
+  padding: 2px;
+  border-radius: 16px;
+  background: var(--background-primary);
+  .email{
+    background: var(--background-secondary);
+    border-radius: 12px;
+    border: solid 2px var(--border-field);
+    display: flex;
+    align-items: center;
+    height: 28px;
+    overflow: hidden;
+    padding: 0 4px 0 8px;
+    gap: 4px;
+    font-size: 13px;
+    .content{
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+    .icon{
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      fill: white;
+      object-fit: contain;
+    }
+    &:hover{
+      border: solid 2px var(--border-selected);
+    }
+  }
+
+  .input{
+    border: none;
+    background: none;
+    flex: 1;
+    height: 31px;
+    color: white;
+    padding: 0 4px;
+    font-size: 13px;
+    &:focus{
+      outline: none;
+    }
+    &::placeholder{
+      color: var(--text-placeholder);
+    }
+  }
+}
