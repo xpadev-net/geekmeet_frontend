@@ -1,6 +1,6 @@
 import {useState,KeyboardEvent} from "react";
 import Styles from "./email-inputs.module.scss";
-import {DeleteOutlinedIcon} from "@xpadev-net/material-icons";
+import {DeleteOutlinedIcon} from "@xpadev-net/material-icons/delete-outlined";
 
 const Email = ({email,onClick}: {email: string,onClick: () =>void}) => {
   return <div className={Styles.email} onClick={onClick} title={email}>

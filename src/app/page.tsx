@@ -1,5 +1,5 @@
 import Styles from './page.module.scss'
-import {ArrowForwardFilledIcon} from "@xpadev-net/material-icons";
+import {ArrowForwardFilledIcon} from "@xpadev-net/material-icons/arrow-forward-filled";
 import Link from "next/link";
 import {SecondaryButton} from "@/components/buttons";
 

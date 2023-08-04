@@ -15,8 +15,8 @@ dependencies:
     specifier: 18.2.7
     version: 18.2.7
   '@xpadev-net/material-icons':
-    specifier: ^0.0.3
-    version: 0.0.3
+    specifier: ^0.0.6
+    version: 0.0.6
   eslint:
     specifier: 8.46.0
     version: 8.46.0
@@ -346,8 +346,8 @@ packages:
       eslint-visitor-keys: 3.4.2
     dev: false
 
-  /@xpadev-net/material-icons@0.0.3:
-    resolution: {integrity: sha512-vEj9a6Oa9y2AXZPVHtYi1v2M+Nv19gO4+MbLIUQm+xXp9VoOH5wJlNs0WJGyg49QsS6xu8rNKJvBAePWqpodHg==}
+  /@xpadev-net/material-icons@0.0.6:
+    resolution: {integrity: sha512-KCF9IlXCkiIM+5oxfr2ye8Ijayp4N324h+4O8TlGJwEmEU62i1hEm1aUKObOl4+ljYaYjH6RTFeNPc7Ik3sP9w==}
     dependencies:
       react: 18.2.0
     dev: false
