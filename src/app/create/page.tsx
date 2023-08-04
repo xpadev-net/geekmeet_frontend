@@ -10,7 +10,7 @@ import {EmailInputs} from "@/components/email-inputs/email-inputs";
 
 export default function CreateRoom() {
   const [roomType,setRoomType] = useState<RoomType>("normal")
-  const [isPrivate, setIsPrivate] = useState<boolean>(true)
+  const [isPrivate, setIsPrivate] = useState<boolean>(false)
   const [emails,setEmails] = useState<string[]>([]);
   return <main className={Styles.wrapper}>
     <div className={Styles.container}>

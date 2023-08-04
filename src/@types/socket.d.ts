@@ -1,7 +1,19 @@
 import {UUID} from "@/@types/brands";
 
 export type ServerToClientEvents = {
+  joinRoom: (param: JoinRoomResponse) => void,
 };
+
+export type JoinRoomResponse = {
+  code: 404,
+  message: "room not found"
+} | {
+  code: 403,
+  message: "not allowed",
+} | {
+  code: 200,
+  users: string[],
+}
 
 export type CreateRoomBody =
   | {
