@@ -15,10 +15,12 @@
     "@xpadev-net/material-icons": "^0.0.3",
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.12",
+    "jotai": "^2.2.3",
     "next": "13.4.12",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "sass": "^1.64.2",
+    "socket.io-client": "^4.7.2",
     "typescript": "5.1.6"
   }
 }
