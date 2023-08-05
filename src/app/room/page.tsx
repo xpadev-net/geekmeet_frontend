@@ -6,10 +6,10 @@ import { useEffect } from "react";
 import { localStreamAtom } from "@/context/stream";
 import { useRouter } from "next/navigation";
 import { usersAtom } from "@/context/room";
-import { WebRTCConnection } from "@/components/connection";
 import { ConnectingResponse, LeaveResponse } from "@/@types/socket";
-import { SelfView } from "@/components/self-view/self-view";
 import { Controls } from "@/components/controls";
+import Styles from "./page.module.scss";
+import { VideoContainer } from "@/components/videoContainer/VideoContainer";
 
 export default function Room() {
   const socket = useAtomValue(socketAtom);
@@ -37,27 +37,15 @@ export default function Room() {
       socket.off("connecting", onConnecting);
       socket.off("leave", onLeave);
     };
-  }, []);
+  }, [users]);
 
   if (!socket || !mediaStream || !users) {
     return <></>;
   }
-
   return (
-    <main>
-      <div>
-        <SelfView />
-        {users.map((user) => {
-          return (
-            <WebRTCConnection
-              key={user.userId}
-              target={user.userId}
-              type={user.type}
-            />
-          );
-        })}
-      </div>
-      <Controls />
+    <main className={Styles.wrapper}>
+      <VideoContainer />
+      <Controls className={Styles.control} />
     </main>
   );
 }

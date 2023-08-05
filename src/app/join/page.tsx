@@ -41,7 +41,6 @@ export default function JoinRoom() {
         audio: true,
         video: { width: 640, height: 360 },
       };
-      console.log("test");
       const mediaStream = await navigator.mediaDevices.getUserMedia(
         constraints,
       );

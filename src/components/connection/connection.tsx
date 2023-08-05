@@ -8,13 +8,14 @@ import { WebrtcIceResponse, WebrtcSdpResponse } from "@/@types/socket";
 type props = {
   target: string;
   type: "offer" | "answer";
+  className?: string;
 };
 
 function errorHandler(error: Error) {
   console.error("Signaling error.\n\n" + error.name + ": " + error.message);
 }
 
-const WebRTCConnection = ({ target, type }: props) => {
+const WebRTCConnection = ({ target, type, className }: props) => {
   const socket = useAtomValue(socketAtom);
   const sharedStream = useAtomValue(sharedStreamAtom);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -86,7 +87,6 @@ const WebRTCConnection = ({ target, type }: props) => {
       } else {
         iceQueue.push(param);
       }
-      console.log(iceQueue.length);
       if (iceQueue.length > 0 && pc.remoteDescription) {
         const task = iceQueue.shift();
         if (!task) throw new Error("task is null");
@@ -110,9 +110,12 @@ const WebRTCConnection = ({ target, type }: props) => {
   }, [target, videoRef]);
 
   return (
-    <div>
-      <video ref={videoRef} playsInline={true} autoPlay={true} />
-    </div>
+    <video
+      ref={videoRef}
+      playsInline={true}
+      autoPlay={true}
+      className={className}
+    />
   );
 };
 
