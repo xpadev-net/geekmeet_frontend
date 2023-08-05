@@ -1,5 +1,5 @@
 import { useAtomValue } from "jotai";
-import {sharedStreamAtom} from "@/context/stream";
+import { sharedStreamAtom } from "@/context/stream";
 import { useEffect, useRef } from "react";
 
 const SelfView = () => {
