@@ -1,13 +1,13 @@
 "use client";
 
 import { useAtomValue } from "jotai";
-import { sharedStreamAtom } from "@/context/stream";
+import { localStreamAtom } from "@/context/stream";
 import { MicOffFilledIcon } from "@xpadev-net/material-icons/mic-off-filled";
 import { MicFilledIcon } from "@xpadev-net/material-icons/mic-filled";
 import { useEffect, useState } from "react";
 
 const MuteButton = () => {
-  const stream = useAtomValue(sharedStreamAtom);
+  const stream = useAtomValue(localStreamAtom);
   const [isMuted, setIsMuted] = useState<boolean>(
     stream?.getAudioTracks().reduce((pv, val) => pv && !val.enabled, true) ??
       false,
