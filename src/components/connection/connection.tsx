@@ -5,7 +5,6 @@ import { streamAtom } from "@/context/stream";
 import { PeerConnectionConfig } from "@/context/config";
 import {
   WebrtcIceResponse,
-  WebrtcSdpBody,
   WebrtcSdpResponse,
 } from "@/@types/socket";
 
@@ -40,7 +39,6 @@ const WebRTCConnection = ({ target, type }: props) => {
     pc.ontrack = (event) => {
       if (!videoRef.current) return;
       if (pc) {
-        // Remote側のストリームを設定
         if (event?.streams[0]) {
           videoRef.current.srcObject = event.streams[0];
         } else {
@@ -89,7 +87,6 @@ const WebRTCConnection = ({ target, type }: props) => {
           errorHandler,
         );
       } else {
-        // SDPが未処理のためキューに貯める
         iceQueue.push(param);
       }
       const task = iceQueue.shift();
