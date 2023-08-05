@@ -6,8 +6,18 @@ export type ServerToClientEvents = {
   leave: (param: LeaveResponse) => void;
   webrtcSdp: (param: WebrtcSdpResponse) => void;
   webrtcIce: (param: WebrtcIceResponse) => void;
+  createRoom: (param: CreateRoomResponse) => void;
+  message: (param: SendMessageResponse) => void;
 };
 
+export type SendMessageResponse = {
+  src: string;
+  data: unknown;
+};
+export type CreateRoomResponse = {
+  code: 200;
+  roomId: UUID;
+};
 export type WebrtcSdpResponse = {
   description: RTCSessionDescription;
   src: string;
@@ -22,11 +32,11 @@ export type ConnectingResponse = { userId: string };
 export type JoinRoomResponse =
   | {
       code: 404;
-      message: "room not found";
+      message: string;
     }
   | {
       code: 403;
-      message: "not allowed";
+      message: string;
     }
   | {
       code: 200;
