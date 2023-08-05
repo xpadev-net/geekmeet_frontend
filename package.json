@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "check-types": "npx tsc --noEmit --jsx react",
+    "check-types": "npx tsc --noEmit --jsx react-jsx",
     "eslint": "eslint src/**/*.ts*",
     "eslint:fix": "eslint src/**/*.ts* --fix",
     "format": "prettier --write \"src/**/*.{tsx,ts,js,json,css,scss}\"",

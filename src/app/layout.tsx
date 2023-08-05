@@ -1,11 +1,11 @@
-import './globals.scss'
-import "./variable.scss"
-import {Socket} from "@/components/socket/Socket";
+import "./globals.scss";
+import "./variable.scss";
+import { Socket } from "@/components/socket/Socket";
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="ja">
@@ -13,7 +13,7 @@ export default function RootLayout({
         <title>GeekMeet</title>
       </head>
       <body>{children}</body>
-      <Socket/>
+      <Socket />
     </html>
-  )
+  );
 }

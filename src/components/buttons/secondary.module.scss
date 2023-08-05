@@ -1,14 +1,14 @@
-.button{
+.button {
   border: 1px solid var(--button-normal);
   color: var(--button-normal);
   background: none;
   height: 36px;
   border-radius: 16px;
   cursor: pointer;
-  &:hover{
+  &:hover {
     border: 2px solid var(--button-hover);
   }
-  &:focus{
+  &:focus {
     border: 2px solid var(--border-focused);
     outline: none;
   }

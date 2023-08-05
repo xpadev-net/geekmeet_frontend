@@ -1,3 +1,5 @@
-import {atom} from "jotai";
+import { atom } from "jotai";
 
-export const peerConnectionsAtom = atom<{[userId: string]:RTCPeerConnection}>({});
+export const peerConnectionsAtom = atom<{
+  [userId: string]: RTCPeerConnection;
+}>({});

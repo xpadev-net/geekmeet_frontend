@@ -1,4 +1,4 @@
-.button{
+.button {
   border: none;
   display: flex;
   align-items: center;
@@ -8,13 +8,13 @@
   background: var(--button-normal);
   color: var(--text-on-fill);
   cursor: pointer;
-  &:hover{
+  &:hover {
     background: var(--button-hover);
   }
-  &:focus{
+  &:focus {
     outline: 2px solid var(--border-focused);
   }
-  &:disabled{
+  &:disabled {
     background: var(--button-disabled);
   }
 }

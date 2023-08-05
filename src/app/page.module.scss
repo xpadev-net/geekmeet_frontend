@@ -8,8 +8,8 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    .create{
-      .button{
+    .create {
+      .button {
         width: 100%;
       }
     }
@@ -28,7 +28,7 @@
         &:focus {
           outline: none;
         }
-        &::placeholder{
+        &::placeholder {
           color: var(--text-placeholder);
         }
       }

@@ -1,7 +1,7 @@
-.wrapper{
+.wrapper {
   display: flex;
   gap: 16px;
-  .label{
+  .label {
     height: 36px;
     border: solid 2px var(--border-field);
     flex: 1;
@@ -9,12 +9,12 @@
     display: flex;
     align-items: center;
     border-radius: 16px;
-    &.checked{
+    &.checked {
       border: solid 2px var(--border-selected);
     }
-    .input{
+    .input {
     }
-    .span{
+    .span {
       padding-left: 16px;
     }
   }
