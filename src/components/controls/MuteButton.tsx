@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 const MuteButton = () => {
   const stream = useAtomValue(sharedStreamAtom);
   const [isMuted, setIsMuted] = useState<boolean>(
-    stream?.getAudioTracks().reduce((pv, val) => pv && !!val, false) ?? false,
+    stream?.getAudioTracks().reduce((pv, val) => pv && !val.enabled, true) ?? false,
   );
   useEffect(() => {
     stream?.getAudioTracks().forEach((track) => {

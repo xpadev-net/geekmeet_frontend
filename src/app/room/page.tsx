@@ -16,7 +16,7 @@ export default function Room() {
   const socket = useAtomValue(socketAtom);
   const mediaStream = useAtomValue(localStreamAtom);
   const [users, setUsers] = useAtom(usersAtom);
-  const roomId = location.hash.slice(1);
+  const roomId = typeof location !== "undefined"&&location?.hash.slice(1);
   const router = useRouter();
 
   useEffect(() => {

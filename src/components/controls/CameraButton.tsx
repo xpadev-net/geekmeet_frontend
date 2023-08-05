@@ -9,7 +9,7 @@ import { VideocamOffFilledIcon } from "@xpadev-net/material-icons/videocam-off-f
 const CameraButton = () => {
   const stream = useAtomValue(sharedStreamAtom);
   const [isDisabled, setIsDisabled] = useState<boolean>(
-    stream?.getVideoTracks().reduce((pv, val) => pv && !!val, false) ?? false,
+    stream?.getVideoTracks().reduce((pv, val) => pv && !val.enabled, true) ?? false,
   );
   useEffect(() => {
     stream?.getVideoTracks().forEach((track) => {

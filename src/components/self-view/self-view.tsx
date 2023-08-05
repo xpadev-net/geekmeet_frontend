@@ -1,14 +1,14 @@
 import { useAtomValue } from "jotai";
-import { localStreamAtom } from "@/context/stream";
+import {sharedStreamAtom} from "@/context/stream";
 import { useEffect, useRef } from "react";
 
 const SelfView = () => {
-  const localStream = useAtomValue(localStreamAtom);
+  const sharedStream = useAtomValue(sharedStreamAtom);
   const videoRef = useRef<HTMLVideoElement>(null);
   useEffect(() => {
-    if (!videoRef.current || !localStream) return;
-    videoRef.current.srcObject = localStream;
-  }, [localStream, videoRef]);
+    if (!videoRef.current || !sharedStream) return;
+    videoRef.current.srcObject = sharedStream;
+  }, [sharedStream, videoRef]);
   return (
     <video ref={videoRef} playsInline={true} autoPlay={true} muted={true} />
   );

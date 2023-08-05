@@ -16,7 +16,7 @@ export default function JoinRoom() {
   const socket = useAtomValue(socketAtom);
   const setUsers = useSetAtom(usersAtom);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const roomId = location.hash.slice(1);
+  const roomId = typeof location !== "undefined"&&location?.hash.slice(1);
   const router = useRouter();
   useEffect(() => {
     (async () => {
