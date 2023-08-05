@@ -21,7 +21,7 @@ export default function CreateRoom() {
             value={roomType}
             options={[
               { label: "通常", value: "normal" },
-              { label: "発表会用", value: "presenter" },
+              { label: "発表会用", value: "presenter", disabled: true },
             ]}
             onChange={(val) => setRoomType(val)}
           />
@@ -32,7 +32,7 @@ export default function CreateRoom() {
             value={`${isPrivate}`}
             options={[
               { label: "限定公開", value: "false" },
-              { label: "非公開", value: "true" },
+              { label: "非公開", value: "true", disabled: true },
             ]}
             onChange={(val) => setIsPrivate(val === "true")}
           />
