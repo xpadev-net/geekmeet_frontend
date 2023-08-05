@@ -1,7 +1,7 @@
 "use client";
 
-import { SelfView } from "@/components/self-view/self-view";
-import { WebRTCConnection } from "@/components/connection";
+import { SelfView } from "@/components/videoContainer/self-view";
+import { WebRTCConnection } from "@/components/videoContainer/connection";
 import { usersAtom } from "@/context/room";
 import { useAtomValue } from "jotai";
 
@@ -44,22 +44,15 @@ const VideoContainer = () => {
   if (!users) return <></>;
 
   const elements = [
-    <div className={Styles.item} key={"self-view"} style={size}>
-      <div className={Styles.container}>
-        <SelfView className={Styles.video} />
-      </div>
-    </div>,
+    <SelfView key={"self-view"} size={size} />,
     ...users.map((user) => {
       return (
-        <div className={Styles.item} key={user.userId} style={size}>
-          <div className={Styles.container}>
-            <WebRTCConnection
-              target={user.userId}
-              type={user.type}
-              className={Styles.video}
-            />
-          </div>
-        </div>
+        <WebRTCConnection
+          key={user.userId}
+          target={user.userId}
+          type={user.type}
+          size={size}
+        />
       );
     }),
   ];
@@ -79,7 +72,7 @@ const VideoContainer = () => {
             >
               {elements
                 .slice(index * itemPerRow, (index + 1) * itemPerRow)
-                .map((element) => element)}
+                .map((element, index) => element)}
             </div>
           );
         })}

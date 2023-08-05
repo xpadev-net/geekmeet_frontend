@@ -4,18 +4,20 @@ import { socketAtom } from "@/context/socket";
 import { sharedStreamAtom } from "@/context/stream";
 import { PeerConnectionConfig } from "@/context/config";
 import { WebrtcIceResponse, WebrtcSdpResponse } from "@/@types/socket";
+import { Video } from "@/components/videoContainer/video";
+import { TrackUpdateEvent } from "@/@types/global";
 
 type props = {
   target: string;
   type: "offer" | "answer";
-  className?: string;
+  size: { width: number; height: number };
 };
 
 function errorHandler(error: Error) {
   console.error("Signaling error.\n\n" + error.name + ": " + error.message);
 }
 
-const WebRTCConnection = ({ target, type, className }: props) => {
+const WebRTCConnection = ({ target, type, size }: props) => {
   const socket = useAtomValue(socketAtom);
   const sharedStream = useAtomValue(sharedStreamAtom);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -35,18 +37,35 @@ const WebRTCConnection = ({ target, type, className }: props) => {
       }
     };
     pc.ontrack = (event) => {
+      console.log(event);
       if (!videoRef.current) return;
       if (pc) {
         if (event?.streams[0]) {
-          videoRef.current.srcObject = event.streams[0];
+          remoteStream = event.streams[0];
         } else {
-          videoRef.current.srcObject = new MediaStream([event.track]);
+          remoteStream = new MediaStream([event.track]);
         }
+        videoRef.current.srcObject = remoteStream;
       }
     };
     for (const track of sharedStream.getTracks()) {
       pc.addTrack(track, sharedStream);
     }
+
+    const onTrackRemove = (e: TrackUpdateEvent) => {
+      const sender = pc.getSenders().find((s) => s.track === e.detail.track);
+      if (!sender) return;
+      pc.removeTrack(sender);
+    };
+
+    const onTrackAdd = (e: TrackUpdateEvent) => {
+      pc.addTrack(e.detail.track, sharedStream);
+
+      pc.createOffer().then(setDescription);
+    };
+
+    sharedStream.addEventListener("_removetrack", onTrackRemove);
+    sharedStream.addEventListener("_addtrack", onTrackAdd);
 
     const setDescription = (description: RTCSessionDescriptionInit) => {
       pc.setLocalDescription(description)
@@ -98,6 +117,8 @@ const WebRTCConnection = ({ target, type, className }: props) => {
     socket.on("webrtcSdp", onWebRTCSdp);
     return () => {
       socket.off("webrtcSdp", onWebRTCSdp);
+      sharedStream.removeEventListener("_removetrack", onTrackRemove);
+      sharedStream.removeEventListener("_addtrack", onTrackAdd);
       try {
         remoteStream?.getTracks().forEach((track) => {
           track.stop();
@@ -110,12 +131,9 @@ const WebRTCConnection = ({ target, type, className }: props) => {
   }, [target, videoRef]);
 
   return (
-    <video
-      ref={videoRef}
-      playsInline={true}
-      autoPlay={true}
-      className={className}
-    />
+    <>
+      <Video ref={videoRef} size={size} />
+    </>
   );
 };
 
