@@ -1,9 +1,9 @@
 import { useAtomValue } from "jotai";
-import { streamAtom } from "@/context/stream";
+import { localStreamAtom } from "@/context/stream";
 import { useEffect, useRef } from "react";
 
 const SelfView = () => {
-  const localStream = useAtomValue(streamAtom);
+  const localStream = useAtomValue(localStreamAtom);
   const videoRef = useRef<HTMLVideoElement>(null);
   useEffect(() => {
     if (!videoRef.current || !localStream) return;

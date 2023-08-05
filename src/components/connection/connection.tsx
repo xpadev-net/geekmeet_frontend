@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { useEffect, useRef } from "react";
 import { socketAtom } from "@/context/socket";
-import { streamAtom } from "@/context/stream";
+import { sharedStreamAtom } from "@/context/stream";
 import { PeerConnectionConfig } from "@/context/config";
 import { WebrtcIceResponse, WebrtcSdpResponse } from "@/@types/socket";
 
@@ -16,11 +16,11 @@ function errorHandler(error: Error) {
 
 const WebRTCConnection = ({ target, type }: props) => {
   const socket = useAtomValue(socketAtom);
-  const localStream = useAtomValue(streamAtom);
+  const sharedStream = useAtomValue(sharedStreamAtom);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    if (!socket || !videoRef.current || !localStream) {
+    if (!socket || !videoRef.current || !sharedStream) {
       return;
     }
     const pc = new RTCPeerConnection(PeerConnectionConfig);
@@ -43,8 +43,8 @@ const WebRTCConnection = ({ target, type }: props) => {
         }
       }
     };
-    for (const track of localStream.getTracks()) {
-      pc.addTrack(track, localStream);
+    for (const track of sharedStream.getTracks()) {
+      pc.addTrack(track, sharedStream);
     }
 
     const setDescription = (description: RTCSessionDescriptionInit) => {

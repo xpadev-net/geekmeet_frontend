@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { streamAtom } from "@/context/stream";
+import { localStreamAtom, sharedStreamAtom } from "@/context/stream";
 import { socketAtom } from "@/context/socket";
 import { UUID } from "@/@types/brands";
 import { useRouter } from "next/navigation";
@@ -11,7 +11,8 @@ import { usersAtom } from "@/context/room";
 export default function JoinRoom() {
   const [isLoading, setIsLoading] = useState(false);
   const [trigger, setTrigger] = useState(0);
-  const [stream, setStream] = useAtom(streamAtom);
+  const [stream, setStream] = useAtom(localStreamAtom);
+  const setSharedStream = useSetAtom(sharedStreamAtom);
   const socket = useAtomValue(socketAtom);
   const setUsers = useSetAtom(usersAtom);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -39,6 +40,7 @@ export default function JoinRoom() {
       );
       setStream(mediaStream);
       videoRef.current.srcObject = mediaStream;
+      setSharedStream(new MediaStream(mediaStream));
     })();
   }, [videoRef, trigger]);
 
@@ -58,11 +60,27 @@ export default function JoinRoom() {
     socket.emit("joinRoom", { roomId: roomId as UUID });
   };
 
+  const toggleMute = () => {
+    if (!stream) return;
+    stream.getAudioTracks().forEach((track) => {
+      track.enabled = !track.enabled;
+    });
+  };
+
+  const toggleCamera = () => {
+    if (!stream) return;
+    stream.getVideoTracks().forEach((track) => {
+      track.enabled = !track.enabled;
+    });
+  };
+
   return (
     <div>
       <video ref={videoRef} playsInline={true} autoPlay={true} muted={true} />
       <button onClick={joinRoomHandler}>join</button>
       <button onClick={() => setTrigger(trigger + 1)}>camera</button>
+      <button onClick={toggleMute}>mute</button>
+      <button onClick={toggleCamera}>Camera</button>
     </div>
   );
 }

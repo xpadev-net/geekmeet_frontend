@@ -1,3 +1,4 @@
 import { atom } from "jotai";
 
-export const streamAtom = atom<MediaStream | undefined>(undefined);
+export const localStreamAtom = atom<MediaStream | undefined>(undefined);
+export const sharedStreamAtom = atom<MediaStream | undefined>(undefined);
