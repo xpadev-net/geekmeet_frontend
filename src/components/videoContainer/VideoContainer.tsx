@@ -45,16 +45,20 @@ const VideoContainer = () => {
 
   const elements = [
     <div className={Styles.item} key={"self-view"} style={size}>
-      <SelfView className={Styles.video} />
+      <div className={Styles.container}>
+        <SelfView className={Styles.video} />
+      </div>
     </div>,
     ...users.map((user) => {
       return (
         <div className={Styles.item} key={user.userId} style={size}>
-          <WebRTCConnection
-            target={user.userId}
-            type={user.type}
-            className={Styles.video}
-          />
+          <div className={Styles.container}>
+            <WebRTCConnection
+              target={user.userId}
+              type={user.type}
+              className={Styles.video}
+            />
+          </div>
         </div>
       );
     }),
