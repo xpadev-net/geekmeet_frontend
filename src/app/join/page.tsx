@@ -1,16 +1,19 @@
 "use client";
 
 import {useEffect, useRef, useState} from "react";
-import {useAtom, useAtomValue} from "jotai";
+import {useAtom, useAtomValue, useSetAtom} from "jotai";
 import {streamAtom} from "@/context/stream";
 import {socketAtom} from "@/context/socket";
 import {UUID} from "@/@types/brands";
-import {redirect, useRouter} from "next/navigation";
+import {useRouter} from "next/navigation";
+import {usersAtom} from "@/context/room";
 
 export default function JoinRoom(){
   const [isLoading,setIsLoading] = useState(false);
+  const [trigger,setTrigger] = useState(0);
   const [stream,setStream] = useAtom(streamAtom)
   const socket = useAtomValue(socketAtom);
+  const setUsers = useSetAtom(usersAtom)
   const videoRef = useRef<HTMLVideoElement>(null);
   const roomId = location.hash.slice(1);
   const router = useRouter()
@@ -36,7 +39,7 @@ export default function JoinRoom(){
       setStream(mediaStream);
       videoRef.current.srcObject = mediaStream;
     })();
-  },[videoRef]);
+  },[videoRef,trigger]);
   
   if (!socket) return <></>;
   
@@ -47,6 +50,7 @@ export default function JoinRoom(){
         alert(param.message);
         return;
       }
+      setUsers(param.users.map((user)=>({userId: user, type: "offer"})));
       router.push(`/room/#${roomId}`)
     })
     setIsLoading(true);
@@ -56,5 +60,6 @@ export default function JoinRoom(){
   return <div>
     <video ref={videoRef}/>
     <button onClick={joinRoomHandler}>join</button>
+    <button onClick={()=>setTrigger(trigger+1)}>camera</button>
   </div>
 }

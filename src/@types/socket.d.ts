@@ -2,7 +2,22 @@ import {UUID} from "@/@types/brands";
 
 export type ServerToClientEvents = {
   joinRoom: (param: JoinRoomResponse) => void,
+  connecting: (param: ConnectingResponse) => void,
+  leave: (param: LeaveResponse) => void,
+  webrtcSdp: (param: WebrtcSdpResponse) => void,
+  webrtcIce: (param: WebrtcIceResponse) => void,
 };
+
+export type WebrtcSdpResponse = {
+  description: RTCSessionDescription;
+  src: string;
+};
+export type WebrtcIceResponse = {
+  candidate: RTCIceCandidate;
+  src: string;
+};
+export type LeaveResponse = { userId: string }
+export type ConnectingResponse = { userId: string }
 
 export type JoinRoomResponse = {
   code: 404,
@@ -33,7 +48,7 @@ export type JoinRoomBody = {
 export type SendMessageBody =
   | {
   type: "private";
-  dest: UUID;
+  dest: string;
   data: unknown;
 }
   | {
@@ -43,12 +58,12 @@ export type SendMessageBody =
 
 export type WebrtcSdpBody = {
   description: RTCSessionDescription;
-  dest: UUID;
+  dest: string;
 };
 
 export type WebrtcIceBody = {
   candidate: RTCIceCandidate;
-  dest: UUID;
+  dest: string;
 };
 
 export type ClientToServerEvents = {

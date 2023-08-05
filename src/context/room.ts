@@ -1,3 +1,3 @@
 import {atom} from "jotai";
 
-export const Users = atom<string[]|undefined>(undefined);
+export const usersAtom = atom<{ userId: string, type: "offer"|"answer" }[]|undefined>(undefined);
