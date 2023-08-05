@@ -4,6 +4,8 @@ import { socketAtom } from "@/context/socket";
 import { useRouter } from "next/navigation";
 import { localStreamAtom, sharedStreamAtom } from "@/context/stream";
 import { usersAtom } from "@/context/room";
+import { SecondaryButton } from "@/components/buttons";
+import Styles from "./button.module.scss";
 
 const LeaveButton = () => {
   const socket = useAtomValue(socketAtom);
@@ -22,9 +24,9 @@ const LeaveButton = () => {
     router.push("/");
   };
   return (
-    <button onClick={onClick}>
-      <CallEndFilledIcon />
-    </button>
+    <SecondaryButton onClick={onClick} className={Styles.button}>
+      <CallEndFilledIcon className={Styles.icon} />
+    </SecondaryButton>
   );
 };
 

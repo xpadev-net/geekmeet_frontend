@@ -1,0 +1,9 @@
+.button {
+  width: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .icon {
+    fill: var(--icon-label);
+  }
+}

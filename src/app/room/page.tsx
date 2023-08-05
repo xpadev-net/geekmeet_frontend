@@ -9,7 +9,6 @@ import { usersAtom } from "@/context/room";
 import { WebRTCConnection } from "@/components/connection";
 import { ConnectingResponse, LeaveResponse } from "@/@types/socket";
 import { SelfView } from "@/components/self-view/self-view";
-import { MuteButton } from "@/components/controls/MuteButton";
 import { Controls } from "@/components/controls";
 
 export default function Room() {

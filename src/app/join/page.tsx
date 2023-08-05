@@ -9,6 +9,8 @@ import { useRouter } from "next/navigation";
 import { usersAtom } from "@/context/room";
 import { MuteButton } from "@/components/controls/MuteButton";
 import { CameraButton } from "@/components/controls/CameraButton";
+import Styles from "./page.module.scss";
+import { PrimaryButton } from "@/components/buttons";
 
 export default function JoinRoom() {
   const [isLoading, setIsLoading] = useState(false);
@@ -72,26 +74,44 @@ export default function JoinRoom() {
   };
 
   return (
-    <div>
-      <div>
-        <video ref={videoRef} playsInline={true} autoPlay={true} muted={true} />
-        <div>
-          <MuteButton />
-          <CameraButton />
-        </div>
-      </div>
-      <div>
-        <button onClick={joinRoomHandler}>join</button>
-        {isRejected && (
-          <div>
-            <div>
-              通話に参加するにはマイクとカメラの使用を許可する必要があります
-            </div>
-            <div>
-              許可するにはブロックを解除してページをリロードしてください
-            </div>
+    <div className={Styles.wrapper}>
+      <div className={Styles.container}>
+        <h1></h1>
+        <div className={Styles.view}>
+          <div className={Styles.videoWrapper}>
+            <video
+              className={Styles.video}
+              ref={videoRef}
+              playsInline={true}
+              autoPlay={true}
+              muted={true}
+            />
+            {!stream && (
+              <div className={Styles.overlay}>
+                カメラとマイクの使用を許可してください
+              </div>
+            )}
           </div>
-        )}
+          <div className={Styles.controls}>
+            <MuteButton />
+            <CameraButton />
+          </div>
+        </div>
+        <div className={Styles.info}>
+          <PrimaryButton onClick={joinRoomHandler} disabled={!stream}>
+            通話に参加する
+          </PrimaryButton>
+          {isRejected && (
+            <div className={Styles.error}>
+              <div>
+                通話に参加するにはマイクとカメラの使用を許可する必要があります
+              </div>
+              <div>
+                許可するにはブロックを解除してページをリロードしてください
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

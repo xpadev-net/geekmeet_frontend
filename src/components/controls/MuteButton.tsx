@@ -5,6 +5,8 @@ import { localStreamAtom } from "@/context/stream";
 import { MicOffFilledIcon } from "@xpadev-net/material-icons/mic-off-filled";
 import { MicFilledIcon } from "@xpadev-net/material-icons/mic-filled";
 import { useEffect, useState } from "react";
+import { SecondaryButton } from "@/components/buttons";
+import Styles from "./button.module.scss";
 
 const MuteButton = () => {
   const stream = useAtomValue(localStreamAtom);
@@ -22,9 +24,13 @@ const MuteButton = () => {
     setIsMuted(!isMuted);
   };
   return (
-    <button onClick={muteHandler}>
-      {isMuted ? <MicOffFilledIcon /> : <MicFilledIcon />}
-    </button>
+    <SecondaryButton onClick={muteHandler} className={Styles.button}>
+      {isMuted ? (
+        <MicOffFilledIcon className={Styles.icon} />
+      ) : (
+        <MicFilledIcon className={Styles.icon} />
+      )}
+    </SecondaryButton>
   );
 };
 
