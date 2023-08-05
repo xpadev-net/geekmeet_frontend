@@ -1,9 +1,26 @@
+"use client";
+
 import Styles from "./page.module.scss";
 import { ArrowForwardFilledIcon } from "@xpadev-net/material-icons/arrow-forward-filled";
 import Link from "next/link";
 import { SecondaryButton } from "@/components/buttons";
+import { useState } from "react";
+import type { KeyboardEvent } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const [code, setCode] = useState<string>("");
+
+  const router = useRouter();
+  const onJoinClick = () => {
+    router.push(`/join#${code}`);
+  };
+
+  const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.nativeEvent.isComposing || e.code !== "Enter") return;
+    onJoinClick();
+  };
+
   return (
     <main className={Styles.wrapper}>
       <div className={Styles.container}>
@@ -13,8 +30,11 @@ export default function Home() {
             className={Styles.input}
             type="text"
             placeholder={"参加コード"}
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+            onKeyDown={onKeyDown}
           />
-          <button className={Styles.button}>
+          <button className={Styles.button} onClick={onJoinClick}>
             <ArrowForwardFilledIcon className={Styles.icon} />
           </button>
         </label>
