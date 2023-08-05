@@ -3,10 +3,7 @@ import { useEffect, useRef } from "react";
 import { socketAtom } from "@/context/socket";
 import { streamAtom } from "@/context/stream";
 import { PeerConnectionConfig } from "@/context/config";
-import {
-  WebrtcIceResponse,
-  WebrtcSdpResponse,
-} from "@/@types/socket";
+import { WebrtcIceResponse, WebrtcSdpResponse } from "@/@types/socket";
 
 type props = {
   target: string;

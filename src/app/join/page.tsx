@@ -19,7 +19,7 @@ export default function JoinRoom() {
   const router = useRouter();
   useEffect(() => {
     (async () => {
-      if (!navigator.mediaDevices.getUserMedia||!videoRef.current) return;
+      if (!navigator.mediaDevices.getUserMedia || !videoRef.current) return;
 
       if (stream) {
         try {

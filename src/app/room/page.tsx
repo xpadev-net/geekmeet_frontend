@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { usersAtom } from "@/context/room";
 import { WebRTCConnection } from "@/components/connection";
 import { ConnectingResponse, LeaveResponse } from "@/@types/socket";
-import {SelfView} from "@/components/self-view/self-view";
+import { SelfView } from "@/components/self-view/self-view";
 
 export default function Room() {
   const socket = useAtomValue(socketAtom);
@@ -44,7 +44,7 @@ export default function Room() {
 
   return (
     <>
-      <SelfView/>
+      <SelfView />
       {users.map((user) => {
         return (
           <WebRTCConnection
