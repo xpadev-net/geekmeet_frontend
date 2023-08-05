@@ -11,12 +11,14 @@ import { MuteButton } from "@/components/controls/MuteButton";
 import { CameraButton } from "@/components/controls/CameraButton";
 import Styles from "./page.module.scss";
 import { PrimaryButton } from "@/components/buttons";
+import { TextInput } from "@/components/input";
+import { userNameAtom } from "@/context/name";
 
 export default function JoinRoom() {
   const [isLoading, setIsLoading] = useState(false);
-  const [trigger, setTrigger] = useState(0);
   const [stream, setStream] = useAtom(localStreamAtom);
   const [isRejected, setIsRejected] = useState(false);
+  const [name, setName] = useAtom(userNameAtom);
   const setSharedStream = useSetAtom(sharedStreamAtom);
   const socket = useAtomValue(socketAtom);
   const setUsers = useSetAtom(usersAtom);
@@ -54,7 +56,7 @@ export default function JoinRoom() {
 
   useEffect(() => {
     void requestMediaStream();
-  }, [trigger, socket]);
+  }, [socket]);
 
   if (!socket) return <></>;
 
@@ -65,17 +67,22 @@ export default function JoinRoom() {
         alert(param.message);
         return;
       }
-      setUsers(param.users.map((user) => ({ userId: user, type: "offer" })));
+      setUsers(
+        param.users.map((user) => ({
+          userId: user.id,
+          name: user.name,
+          type: "offer",
+        })),
+      );
       router.push(`/room/#${roomId}`);
     });
     setIsLoading(true);
-    socket.emit("joinRoom", { roomId: roomId as UUID });
+    socket.emit("joinRoom", { roomId: roomId as UUID, name });
   };
 
   return (
     <div className={Styles.wrapper}>
       <div className={Styles.container}>
-        <h1></h1>
         <div className={Styles.view}>
           <div className={Styles.videoWrapper}>
             <video
@@ -97,6 +104,15 @@ export default function JoinRoom() {
           </div>
         </div>
         <div className={Styles.info}>
+          <div>
+            <TextInput
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required={true}
+              placeholder={"名前"}
+            />
+            <p className={Styles.tips}>名前は他の参加者に表示されます</p>
+          </div>
           <PrimaryButton onClick={joinRoomHandler} disabled={!stream}>
             通話に参加する
           </PrimaryButton>

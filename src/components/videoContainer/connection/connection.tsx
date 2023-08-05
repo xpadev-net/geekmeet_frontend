@@ -9,6 +9,7 @@ import { TrackUpdateEvent } from "@/@types/global";
 
 type props = {
   target: string;
+  name: string;
   type: "offer" | "answer";
   size: { width: number; height: number };
 };
@@ -17,7 +18,7 @@ function errorHandler(error: Error) {
   console.error("Signaling error.\n\n" + error.name + ": " + error.message);
 }
 
-const WebRTCConnection = ({ target, type, size }: props) => {
+const WebRTCConnection = ({ target, name, type, size }: props) => {
   const socket = useAtomValue(socketAtom);
   const sharedStream = useAtomValue(sharedStreamAtom);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -132,7 +133,7 @@ const WebRTCConnection = ({ target, type, size }: props) => {
 
   return (
     <>
-      <Video ref={videoRef} size={size} />
+      <Video ref={videoRef} name={name} size={size} />
     </>
   );
 };

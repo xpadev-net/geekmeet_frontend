@@ -1,5 +1,7 @@
 import { UUID } from "@/@types/brands";
 
+export type User = { id: string; name: string };
+
 export type ServerToClientEvents = {
   joinRoom: (param: JoinRoomResponse) => void;
   connecting: (param: ConnectingResponse) => void;
@@ -27,7 +29,7 @@ export type WebrtcIceResponse = {
   src: string;
 };
 export type LeaveResponse = { userId: string };
-export type ConnectingResponse = { userId: string };
+export type ConnectingResponse = { userId: string; name: string };
 
 export type JoinRoomResponse =
   | {
@@ -40,7 +42,7 @@ export type JoinRoomResponse =
     }
   | {
       code: 200;
-      users: string[];
+      users: User[];
     };
 
 export type CreateRoomBody =
@@ -56,6 +58,7 @@ export type CreateRoomBody =
 
 export type JoinRoomBody = {
   roomId: UUID;
+  name: string;
 };
 
 export type SendMessageBody =

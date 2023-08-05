@@ -50,6 +50,7 @@ const VideoContainer = () => {
         <WebRTCConnection
           key={user.userId}
           target={user.userId}
+          name={user.name}
           type={user.type}
           size={size}
         />

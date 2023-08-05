@@ -23,8 +23,8 @@ export default function Room() {
       router.push(`/join/#${roomId}`);
       return;
     }
-    const onConnecting = ({ userId }: ConnectingResponse) => {
-      setUsers([...users, { userId, type: "answer" }]);
+    const onConnecting = ({ userId, name }: ConnectingResponse) => {
+      setUsers([...users, { userId, name, type: "answer" }]);
     };
 
     const onLeave = ({ userId }: LeaveResponse) => {

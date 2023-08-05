@@ -2,6 +2,7 @@ import { useAtomValue } from "jotai";
 import { sharedStreamAtom } from "@/context/stream";
 import { useEffect, useRef } from "react";
 import { Video } from "@/components/videoContainer/video";
+import { userNameAtom } from "@/context/name";
 
 type props = {
   size: { width: number; height: number };
@@ -9,12 +10,13 @@ type props = {
 
 const SelfView = ({ size }: props) => {
   const sharedStream = useAtomValue(sharedStreamAtom);
+  const userName = useAtomValue(userNameAtom);
   const videoRef = useRef<HTMLVideoElement>(null);
   useEffect(() => {
     if (!videoRef.current || !sharedStream) return;
     videoRef.current.srcObject = sharedStream;
   }, [sharedStream, videoRef]);
-  return <Video ref={videoRef} muted={true} size={size} />;
+  return <Video ref={videoRef} muted={true} name={userName} size={size} />;
 };
 
 export { SelfView };
