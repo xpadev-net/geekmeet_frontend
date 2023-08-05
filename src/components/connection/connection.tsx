@@ -11,7 +11,7 @@ type props = {
 };
 
 function errorHandler(error: Error) {
-  alert("Signaling error.\n\n" + error.name + ": " + error.message);
+  console.error("Signaling error.\n\n" + error.name + ": " + error.message);
 }
 
 const WebRTCConnection = ({ target, type }: props) => {
