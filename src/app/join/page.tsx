@@ -19,8 +19,7 @@ export default function JoinRoom() {
   const router = useRouter();
   useEffect(() => {
     (async () => {
-      if (videoRef.current === null) return;
-      if (!navigator.mediaDevices.getUserMedia) return;
+      if (!navigator.mediaDevices.getUserMedia||!videoRef.current) return;
 
       if (stream) {
         try {
@@ -61,7 +60,7 @@ export default function JoinRoom() {
 
   return (
     <div>
-      <video ref={videoRef} />
+      <video ref={videoRef} playsInline={true} autoPlay={true} muted={true} />
       <button onClick={joinRoomHandler}>join</button>
       <button onClick={() => setTrigger(trigger + 1)}>camera</button>
     </div>

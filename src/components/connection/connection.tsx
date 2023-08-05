@@ -89,8 +89,10 @@ const WebRTCConnection = ({ target, type }: props) => {
       } else {
         iceQueue.push(param);
       }
-      const task = iceQueue.shift();
-      if (task) {
+      console.log(iceQueue.length);
+      if (iceQueue.length > 0 && pc.remoteDescription) {
+        const task = iceQueue.shift();
+        if (!task) throw new Error("task is null");
         iceHandler(task);
       }
     };
