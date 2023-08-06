@@ -32,7 +32,6 @@ const VideoContainer = () => {
       const itemWidth = wrapperWidth / itemPerRow - 8;
       const itemHeight = wrapperHeight / row - 8;
       setSize({ width: itemWidth, height: itemHeight });
-      console.log(wrapperHeight, wrapperWidth);
     });
 
     observer.observe(element);
@@ -58,13 +57,10 @@ const VideoContainer = () => {
     }),
   ];
 
-  console.log(elements, itemPerRow, row);
-
   return (
     <div className={Styles.wrapper} ref={wrapperRef}>
       <div className={Styles.container}>
         {new Array(row).fill(1).map((_, index) => {
-          console.log(index, index * itemPerRow, (index + 1) * itemPerRow);
           return (
             <div
               className={Styles.row}

@@ -38,7 +38,6 @@ const WebRTCConnection = ({ target, name, type, size }: props) => {
       }
     };
     pc.ontrack = (event) => {
-      console.log(event);
       if (!videoRef.current) return;
       if (pc) {
         if (event?.streams[0]) {
