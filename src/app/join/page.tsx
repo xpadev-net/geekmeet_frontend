@@ -127,6 +127,9 @@ export default function JoinRoom() {
           <PrimaryButton onClick={joinRoomHandler} disabled={!stream}>
             通話に参加する
           </PrimaryButton>
+          <div className={Styles.note}>
+            参加者を招待するにはこのページまたは通話画面のURLを共有してください
+          </div>
           {isRejected && (
             <div className={Styles.error}>
               <div>
