@@ -21,7 +21,7 @@ const ScreenShareButton = () => {
     MediaStreamTrack | undefined
   >(undefined);
   if (!sharedStream) return;
-  const stopScreenSharing = () => {
+  const stopScreenSharing = (captureTrack?: MediaStreamTrack) => {
     if (captureTrack) {
       removeTrackFromStream(sharedStream, captureTrack);
       captureTrack.stop();
@@ -37,7 +37,9 @@ const ScreenShareButton = () => {
       video: true,
     });
     const [captureTrack] = stream.getVideoTracks();
-    captureTrack.onended = stopScreenSharing;
+    captureTrack.onended = (e) => {
+      stopScreenSharing(captureTrack);
+    };
     const [sharedVideoTrack] = sharedStream.getVideoTracks();
     removeTrackFromStream(sharedStream, sharedVideoTrack);
     addTrackToStream(sharedStream, captureTrack);
@@ -46,7 +48,7 @@ const ScreenShareButton = () => {
   };
   const shareHandler = () => {
     if (isScreenSharing) {
-      stopScreenSharing();
+      stopScreenSharing(captureTrack);
     } else {
       void startScreenSharing();
     }
