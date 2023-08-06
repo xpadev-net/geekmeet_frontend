@@ -1,0 +1,36 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  width: 250px;
+  gap: 16px;
+  border-left: solid 1px var(--border-divider);
+  &.hide {
+    display: none;
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 8px;
+    user-select: none;
+    .icon {
+      fill: var(--primitive);
+      cursor: pointer;
+      &:hover {
+        fill: var(--button-hover);
+      }
+    }
+    border-bottom: solid 1px var(--border-divider);
+  }
+  .messageList {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .textarea {
+    flex-shrink: 0;
+  }
+}

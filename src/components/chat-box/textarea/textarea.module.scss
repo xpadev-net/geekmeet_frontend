@@ -1,0 +1,32 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: var(--background-primary);
+  border: solid 1px var(--border-field);
+  border-radius: 16px;
+  padding: 8px;
+  .textarea {
+    resize: none;
+    height: 60px;
+    background: none;
+    color: var(--text-body);
+    border: none;
+    &:focus {
+      outline: none;
+    }
+  }
+  .control {
+    display: flex;
+    justify-content: right;
+    .button {
+      height: 24px;
+      width: 24px;
+      .icon {
+        height: 16px;
+        width: 16px;
+        fill: var(--text-body);
+      }
+    }
+  }
+}

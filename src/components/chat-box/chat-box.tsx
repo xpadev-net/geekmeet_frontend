@@ -6,6 +6,8 @@ import { socketAtom } from "@/context/socket";
 import { useAtom } from "jotai/index";
 import { chatAtom } from "@/context/chat";
 import { ChatResponse } from "@/@types/socket";
+import Styles from "./chat-box.module.scss";
+import { CloseFilledIcon } from "@xpadev-net/material-icons/close-filled";
 
 const ChatBox = () => {
   const socket = useAtomValue(socketAtom);
@@ -29,10 +31,18 @@ const ChatBox = () => {
     socket.emit("chat", { content });
   };
 
+  const closeButton = () => {
+    setChat((prev) => ({ ...prev, isOpen: false }));
+  };
+
   return (
-    <div>
-      <MessageList messages={chat.messages} />
-      <TextArea onSubmit={submitChat} />
+    <div className={`${Styles.wrapper} ${!chat.isOpen && Styles.hide}`}>
+      <div className={Styles.header}>
+        <CloseFilledIcon onClick={closeButton} className={Styles.icon} />
+        <h2 className={Styles.title}>Chat</h2>
+      </div>
+      <MessageList messages={chat.messages} className={Styles.messageList} />
+      <TextArea onSubmit={submitChat} className={Styles.textarea} />
     </div>
   );
 };
