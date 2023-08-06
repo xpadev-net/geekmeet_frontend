@@ -57,7 +57,7 @@ export default function JoinRoom() {
       const stream = new MediaStream(mediaStream);
       setStream(stream);
       const sharedStream = new MediaStream(stream);
-      videoRef.current.srcObject = stream;
+      videoRef.current.srcObject = sharedStream;
       setSharedStream(sharedStream);
     } catch (e) {
       setIsRejected(true);
