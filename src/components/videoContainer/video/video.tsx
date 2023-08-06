@@ -1,5 +1,7 @@
+"use client";
+
 import Styles from "./Video.module.scss";
-import { forwardRef } from "react";
+import { forwardRef, useState } from "react";
 
 type props = {
   muted?: boolean;
@@ -11,9 +13,15 @@ const Video = forwardRef<HTMLVideoElement, props>(function Video(
   { muted, name, size },
   ref,
 ) {
+  const [isFocus, setIsFocus] = useState(false);
+
+  const toggleFocus = () => {
+    setIsFocus(!isFocus);
+  };
+
   return (
-    <div className={Styles.item} style={size}>
-      <div className={Styles.container}>
+    <div className={Styles.item} style={size} onClick={toggleFocus}>
+      <div className={`${Styles.container} ${isFocus && Styles.focus}`}>
         <span className={Styles.name}>{name}</span>
         <video
           playsInline={true}

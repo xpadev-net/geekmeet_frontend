@@ -10,6 +10,17 @@
     display: grid;
     place-items: center;
     position: relative;
+    &.focus {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: calc(100% - 16px);
+      height: calc(100% - 16px);
+      aspect-ratio: unset;
+      margin: 8px;
+      z-index: 1;
+      background: var(--background-primary);
+    }
     .name {
       position: absolute;
       top: 0;
