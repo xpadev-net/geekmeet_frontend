@@ -10,6 +10,7 @@ import { ConnectingResponse, LeaveResponse } from "@/@types/socket";
 import { Controls } from "@/components/controls";
 import Styles from "./page.module.scss";
 import { VideoContainer } from "@/components/videoContainer/VideoContainer";
+import { ChatBox } from "@/components/chat-box";
 
 export default function Room() {
   const socket = useAtomValue(socketAtom);
@@ -44,7 +45,10 @@ export default function Room() {
   }
   return (
     <main className={Styles.wrapper}>
-      <VideoContainer />
+      <div className={Styles.main}>
+        <VideoContainer />
+        <ChatBox />
+      </div>
       <Controls className={Styles.control} />
     </main>
   );

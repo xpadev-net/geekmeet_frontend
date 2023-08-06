@@ -1,4 +1,5 @@
 import { UUID } from "@/@types/brands";
+import { MessageItem } from "@/@types/chat";
 
 export type User = { id: string; name: string };
 
@@ -10,7 +11,10 @@ export type ServerToClientEvents = {
   webrtcIce: (param: WebrtcIceResponse) => void;
   createRoom: (param: CreateRoomResponse) => void;
   message: (param: SendMessageResponse) => void;
+  chat: (param: ChatResponse) => void;
 };
+
+export type ChatResponse = MessageItem;
 
 export type SendMessageResponse = {
   src: string;
@@ -82,6 +86,10 @@ export type WebrtcIceBody = {
   dest: string;
 };
 
+export type ChatBody = {
+  content: string;
+};
+
 export type ClientToServerEvents = {
   createRoom: (param: CreateRoomBody) => void;
   joinRoom: (param: JoinRoomBody) => void;
@@ -89,4 +97,5 @@ export type ClientToServerEvents = {
   webrtcSdp: (param: WebrtcSdpBody) => void;
   message: (param: SendMessageBody) => void;
   leaveRoom: () => void;
+  chat: (param: ChatBody) => void;
 };
