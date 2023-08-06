@@ -23,15 +23,10 @@ const VideoContainer = () => {
     const element = wrapperRef.current;
     if (!element || !users) return;
     const observer = new ResizeObserver(() => {
-      const scale = Math.min(
-        element.clientWidth / 16,
-        element.clientHeight / 9,
-      );
-      const wrapperWidth = scale * 16;
-      const wrapperHeight = scale * 9;
-      const itemWidth = wrapperWidth / itemPerRow - 8;
-      const itemHeight = wrapperHeight / row - 8;
-      setSize({ width: itemWidth, height: itemHeight });
+      const itemWidth = element.clientWidth / itemPerRow - 8;
+      const itemHeight = element.clientHeight / row - 8;
+      const scale = Math.min(itemWidth / 16, itemHeight / 9);
+      setSize({ width: scale * 16, height: scale * 9 });
     });
 
     observer.observe(element);
