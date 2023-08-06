@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@shiguredo/virtual-background':
+    specifier: ^2023.2.0
+    version: 2023.2.0
   '@types/node':
     specifier: 20.4.7
     version: 20.4.7
@@ -262,6 +265,12 @@ packages:
     resolution: {integrity: sha512-V+MvGwaHH03hYhY+k6Ef/xKd6RYlc4q8WBx+2ANmipHJcKuktNcI/NgEsJgdSUF6Lw32njT6OnrRsKYCdgHjYw==}
     dev: false
 
+  /@shiguredo/virtual-background@2023.2.0:
+    resolution: {integrity: sha512-nvJAsf29ThXMN7tEvlvZ45MeIoXW2uoJxvBwsesYInjoSy0RASQr7qxrLMglX2yyztOeYZqJknQBttjJTGH/QA==}
+    dependencies:
+      '@types/dom-mediacapture-transform': 0.1.6
+    dev: false
+
   /@socket.io/component-emitter@3.1.0:
     resolution: {integrity: sha512-+9jVqKhRSpsc591z5vX+X5Yyw+he/HCB4iQ/RYxw35CEPaY1gnsNE43nf9n9AaYjAQrTiI/mOwKUKdUs9vf7Xg==}
     dev: false
@@ -270,6 +279,16 @@ packages:
     resolution: {integrity: sha512-sJ902EfIzn1Fa+qYmjdQqh8tPsoxyBz+8yBKC2HKUxyezKJFwPGOn7pv4WY6QuQW//ySQi5lJjA/ZT9sNWWNTg==}
     dependencies:
       tslib: 2.6.1
+    dev: false
+
+  /@types/dom-mediacapture-transform@0.1.6:
+    resolution: {integrity: sha512-sl2o+PVeciAozjEmj6UOnxOB3n4qv9bs2mw7PFYWYxpUKTHRIpDvm8TTfsWoRI86byQXWjQKecckaGSx/ExDPA==}
+    dependencies:
+      '@types/dom-webcodecs': 0.1.8
+    dev: false
+
+  /@types/dom-webcodecs@0.1.8:
+    resolution: {integrity: sha512-KThTPaGQJLITk8Q0XkEkz+GqFdoWDyQfbyeJmfEUagB15TZQdNx5AqP2b7GP6vkVM6X/6T1Z8EHxA8RgHfY9BA==}
     dev: false
 
   /@types/json-schema@7.0.12:

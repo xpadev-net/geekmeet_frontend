@@ -3,6 +3,7 @@ import { CameraButton } from "@/components/controls/CameraButton";
 import { LeaveButton } from "@/components/controls/LeaveButton";
 import { ScreenShareButton } from "@/components/controls/ScreenShareButton";
 import { ChatButton } from "@/components/controls/ChatButton";
+import { BlurButton } from "@/components/controls/BlurButton";
 
 type props = {
   className?: string;
@@ -15,6 +16,7 @@ const Controls = ({ className }: props) => {
       <CameraButton />
       <ScreenShareButton />
       <ChatButton />
+      <BlurButton />
       <LeaveButton />
     </div>
   );

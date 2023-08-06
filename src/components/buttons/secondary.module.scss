@@ -12,4 +12,8 @@
     border: 2px solid var(--border-focused);
     outline: none;
   }
+  &:disabled {
+    border: 1px solid var(--border-disabled);
+    color: var(--text-disabled);
+  }
 }

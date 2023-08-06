@@ -2,7 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { localStreamAtom, sharedStreamAtom } from "@/context/stream";
+import {
+  localStreamAtom,
+  originalStreamAtom,
+  sharedStreamAtom,
+} from "@/context/stream";
 import { socketAtom } from "@/context/socket";
 import { UUID } from "@/@types/brands";
 import { useRouter } from "next/navigation";
@@ -13,13 +17,16 @@ import Styles from "./page.module.scss";
 import { PrimaryButton } from "@/components/buttons";
 import { TextInput } from "@/components/input";
 import { userNameAtom } from "@/context/name";
+import { VirtualBackgroundProcessor } from "@shiguredo/virtual-background";
+import { BlurButton } from "@/components/controls/BlurButton";
 
 export default function JoinRoom() {
   const [isLoading, setIsLoading] = useState(false);
+  const [originalStream, setOriginalStream] = useAtom(originalStreamAtom);
   const [stream, setStream] = useAtom(localStreamAtom);
   const [isRejected, setIsRejected] = useState(false);
   const [name, setName] = useAtom(userNameAtom);
-  const setSharedStream = useSetAtom(sharedStreamAtom);
+  const [sharedStream, setSharedStream] = useAtom(sharedStreamAtom);
   const socket = useAtomValue(socketAtom);
   const setUsers = useSetAtom(usersAtom);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -46,9 +53,12 @@ export default function JoinRoom() {
       const mediaStream = await navigator.mediaDevices.getUserMedia(
         constraints,
       );
-      setStream(mediaStream);
-      videoRef.current.srcObject = mediaStream;
-      setSharedStream(new MediaStream(mediaStream));
+      setOriginalStream(mediaStream);
+      const stream = new MediaStream(mediaStream);
+      setStream(stream);
+      const sharedStream = new MediaStream(stream);
+      videoRef.current.srcObject = stream;
+      setSharedStream(sharedStream);
     } catch (e) {
       setIsRejected(true);
     }
@@ -101,6 +111,7 @@ export default function JoinRoom() {
           <div className={Styles.controls}>
             <MuteButton />
             <CameraButton />
+            <BlurButton />
           </div>
         </div>
         <div className={Styles.info}>
