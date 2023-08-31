@@ -17,16 +17,16 @@ import Styles from "./page.module.scss";
 import { PrimaryButton } from "@/components/buttons";
 import { TextInput } from "@/components/input";
 import { userNameAtom } from "@/context/name";
-import { VirtualBackgroundProcessor } from "@shiguredo/virtual-background";
 import { BlurButton } from "@/components/controls/BlurButton";
+import { NoiseSuppressionButton } from "@/components/controls/NoiseButton";
 
 export default function JoinRoom() {
   const [isLoading, setIsLoading] = useState(false);
-  const [originalStream, setOriginalStream] = useAtom(originalStreamAtom);
+  const setOriginalStream = useSetAtom(originalStreamAtom);
   const [stream, setStream] = useAtom(localStreamAtom);
   const [isRejected, setIsRejected] = useState(false);
   const [name, setName] = useAtom(userNameAtom);
-  const [sharedStream, setSharedStream] = useAtom(sharedStreamAtom);
+  const setSharedStream = useSetAtom(sharedStreamAtom);
   const socket = useAtomValue(socketAtom);
   const setUsers = useSetAtom(usersAtom);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -112,6 +112,7 @@ export default function JoinRoom() {
             <MuteButton />
             <CameraButton />
             <BlurButton />
+            <NoiseSuppressionButton />
           </div>
         </div>
         <div className={Styles.info}>
@@ -124,7 +125,10 @@ export default function JoinRoom() {
             />
             <p className={Styles.tips}>名前は他の参加者に表示されます</p>
           </div>
-          <PrimaryButton onClick={joinRoomHandler} disabled={!stream}>
+          <PrimaryButton
+            onClick={joinRoomHandler}
+            disabled={!stream || isLoading}
+          >
             通話に参加する
           </PrimaryButton>
           <div className={Styles.note}>
