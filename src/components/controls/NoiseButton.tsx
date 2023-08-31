@@ -11,6 +11,7 @@ import { useState } from "react";
 import { SecondaryButton } from "@/components/buttons";
 import Styles from "./button.module.scss";
 import { NoiseAwareFilledIcon } from "@xpadev-net/material-icons/noise-aware-filled";
+import { NoiseControlOffFilledIcon } from "@xpadev-net/material-icons/noise-control-off-filled";
 import { addTrackToStream, removeTrackFromStream } from "@/utils/stream";
 import { NoiseSuppressionProcessor } from "@shiguredo/noise-suppression";
 
@@ -59,9 +60,7 @@ const NoiseSuppressionButton = () => {
       setIsNoiseSuppression(true);
     } catch (e: unknown) {
       if (!(e instanceof Error)) return;
-      if (e.message === "Unsupported browser") {
-        setErrorMessage("ノイズ抑制はfirefoxでは利用できません");
-      }
+      setErrorMessage("ノイズ抑制はfirefoxでは利用できません");
     }
   };
   const shareHandler = () => {
@@ -76,9 +75,18 @@ const NoiseSuppressionButton = () => {
       onClick={shareHandler}
       className={Styles.button}
       disabled={!!errorMessage}
-      title={errorMessage}
+      title={
+        errorMessage ??
+        (isNoiseSuppression
+          ? "ノイズ抑制をオフにする"
+          : "ノイズ抑制をオンにする")
+      }
     >
-      <NoiseAwareFilledIcon className={Styles.icon} />
+      {isNoiseSuppression ? (
+        <NoiseAwareFilledIcon className={Styles.icon} />
+      ) : (
+        <NoiseControlOffFilledIcon className={Styles.icon} />
+      )}
     </SecondaryButton>
   );
 };
