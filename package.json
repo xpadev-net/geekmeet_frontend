@@ -15,6 +15,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@shiguredo/noise-suppression": "^2022.4.2",
     "@shiguredo/virtual-background": "^2023.2.0",
     "@types/node": "20.4.7",
     "@types/react": "18.2.18",

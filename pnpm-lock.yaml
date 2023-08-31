@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@shiguredo/noise-suppression':
+    specifier: ^2022.4.2
+    version: 2022.4.2
   '@shiguredo/virtual-background':
     specifier: ^2023.2.0
     version: 2023.2.0
@@ -263,6 +266,12 @@ packages:
 
   /@rushstack/eslint-patch@1.3.2:
     resolution: {integrity: sha512-V+MvGwaHH03hYhY+k6Ef/xKd6RYlc4q8WBx+2ANmipHJcKuktNcI/NgEsJgdSUF6Lw32njT6OnrRsKYCdgHjYw==}
+    dev: false
+
+  /@shiguredo/noise-suppression@2022.4.2:
+    resolution: {integrity: sha512-cgNgDcqiamc2VDpWYVjZXEIGwEio51QvKcdipf452gTESie1PR6rqZaKVwHxuABgsudKGq/1FrBlui9KCdFAtg==}
+    dependencies:
+      '@types/dom-mediacapture-transform': 0.1.6
     dev: false
 
   /@shiguredo/virtual-background@2023.2.0:

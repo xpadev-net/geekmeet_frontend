@@ -4,6 +4,7 @@ import { LeaveButton } from "@/components/controls/LeaveButton";
 import { ScreenShareButton } from "@/components/controls/ScreenShareButton";
 import { ChatButton } from "@/components/controls/ChatButton";
 import { BlurButton } from "@/components/controls/BlurButton";
+import { NoiseSuppressionButton } from "@/components/controls/NoiseButton";
 
 type props = {
   className?: string;
@@ -17,6 +18,7 @@ const Controls = ({ className }: props) => {
       <ScreenShareButton />
       <ChatButton />
       <BlurButton />
+      <NoiseSuppressionButton />
       <LeaveButton />
     </div>
   );
