@@ -3,7 +3,7 @@
 import { useAtom, useAtomValue } from "jotai";
 import { socketAtom } from "@/context/socket";
 import { useEffect } from "react";
-import { localStreamAtom } from "@/context/stream";
+import { localStreamAtom, stateAtom } from "@/context/stream";
 import { useRouter } from "next/navigation";
 import { usersAtom } from "@/context/room";
 import { ConnectingResponse, LeaveResponse } from "@/@types/socket";
@@ -17,6 +17,7 @@ export default function Room() {
   const mediaStream = useAtomValue(localStreamAtom);
   const [users, setUsers] = useAtom(usersAtom);
   const roomId = typeof location !== "undefined" && location?.hash.slice(1);
+  const state = useAtomValue(stateAtom);
   const router = useRouter();
 
   useEffect(() => {
@@ -24,6 +25,7 @@ export default function Room() {
       router.push(`/join/#${roomId}`);
       return;
     }
+    socket.emit("stateChange", state);
     const onConnecting = ({ userId, name }: ConnectingResponse) => {
       setUsers([...users, { userId, name, type: "answer" }]);
     };
@@ -40,6 +42,9 @@ export default function Room() {
     };
   }, [users]);
 
+  useEffect(() => {
+    socket?.emit("stateChange", state);
+  }, [state]);
   if (!socket || !mediaStream || !users) {
     return <></>;
   }

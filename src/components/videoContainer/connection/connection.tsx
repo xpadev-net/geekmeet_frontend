@@ -1,9 +1,13 @@
 import { useAtomValue } from "jotai";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { socketAtom } from "@/context/socket";
-import { sharedStreamAtom } from "@/context/stream";
+import { sharedStreamAtom, stateAtom } from "@/context/stream";
 import { PeerConnectionConfig } from "@/context/config";
-import { WebrtcIceResponse, WebrtcSdpResponse } from "@/@types/socket";
+import {
+  StateChangeResponse,
+  WebrtcIceResponse,
+  WebrtcSdpResponse,
+} from "@/@types/socket";
 import { Video } from "@/components/videoContainer/video";
 import { TrackUpdateEvent } from "@/@types/global";
 
@@ -22,6 +26,11 @@ const WebRTCConnection = ({ target, name, type, size }: props) => {
   const socket = useAtomValue(socketAtom);
   const sharedStream = useAtomValue(sharedStreamAtom);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const state = useAtomValue(stateAtom);
+  const [remoteState, setRemoteState] = useState({
+    camera: true,
+    microphone: true,
+  });
 
   useEffect(() => {
     if (!socket || !videoRef.current || !sharedStream) {
@@ -112,11 +121,21 @@ const WebRTCConnection = ({ target, name, type, size }: props) => {
         iceHandler(task);
       }
     };
+    const onStateChange = (state: StateChangeResponse) => {
+      if (state.src !== target) return;
+      setRemoteState(state.data);
+    };
+    socket.emit("stateChange", state);
+
     socket.on("webrtcIce", iceHandler);
 
     socket.on("webrtcSdp", onWebRTCSdp);
+
+    socket.on("stateChange", onStateChange);
+
     return () => {
       socket.off("webrtcSdp", onWebRTCSdp);
+      socket.off("stateChange", onStateChange);
       sharedStream.removeEventListener("_removetrack", onTrackRemove);
       sharedStream.removeEventListener("_addtrack", onTrackAdd);
       try {
@@ -129,7 +148,7 @@ const WebRTCConnection = ({ target, name, type, size }: props) => {
       pc.close();
     };
   }, [target, videoRef]);
-
+  console.log("remote", remoteState);
   return (
     <>
       <Video ref={videoRef} name={name} size={size} />

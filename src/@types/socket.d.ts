@@ -12,6 +12,7 @@ export type ServerToClientEvents = {
   createRoom: (param: CreateRoomResponse) => void;
   message: (param: SendMessageResponse) => void;
   chat: (param: ChatResponse) => void;
+  stateChange: (param: StateChangeResponse) => void;
 };
 
 export type ChatResponse = MessageItem;
@@ -48,6 +49,13 @@ export type JoinRoomResponse =
       code: 200;
       users: User[];
     };
+export type StateChangeResponse = {
+  src: string;
+  data: {
+    microphone: boolean;
+    camera: boolean;
+  };
+};
 
 export type CreateRoomBody =
   | {
@@ -90,6 +98,11 @@ export type ChatBody = {
   content: string;
 };
 
+export type StateChangeBody = {
+  microphone: boolean;
+  camera: boolean;
+};
+
 export type ClientToServerEvents = {
   createRoom: (param: CreateRoomBody) => void;
   joinRoom: (param: JoinRoomBody) => void;
@@ -98,4 +111,5 @@ export type ClientToServerEvents = {
   message: (param: SendMessageBody) => void;
   leaveRoom: () => void;
   chat: (param: ChatBody) => void;
+  stateChange: (param: StateChangeBody) => void;
 };
