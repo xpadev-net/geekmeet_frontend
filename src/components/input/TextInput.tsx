@@ -1,4 +1,5 @@
 import { ComponentProps } from "react";
+
 import Styles from "./TextInput.module.scss";
 
 type props = ComponentProps<"input">;

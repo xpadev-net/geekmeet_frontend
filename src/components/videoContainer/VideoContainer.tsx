@@ -1,12 +1,13 @@
 "use client";
 
-import { SelfView } from "@/components/videoContainer/self-view";
-import { WebRTCConnection } from "@/components/videoContainer/connection";
-import { usersAtom } from "@/context/room";
 import { useAtomValue } from "jotai";
+import { useEffect, useRef, useState } from "react";
+
+import { WebRTCConnection } from "@/components/videoContainer/connection";
+import { SelfView } from "@/components/videoContainer/self-view";
+import { usersAtom } from "@/context/room";
 
 import Styles from "./VideoContainer.module.scss";
-import { useEffect, useRef, useState } from "react";
 
 const VideoContainer = () => {
   const users = useAtomValue(usersAtom);
@@ -64,7 +65,7 @@ const VideoContainer = () => {
             >
               {elements
                 .slice(index * itemPerRow, (index + 1) * itemPerRow)
-                .map((element, index) => element)}
+                .map((element) => element)}
             </div>
           );
         })}

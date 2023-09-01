@@ -1,8 +1,10 @@
 import { CallEndFilledIcon } from "@xpadev-net/material-icons/call-end-filled";
 import { useAtomValue } from "jotai";
-import { socketAtom } from "@/context/socket";
 import { useRouter } from "next/navigation";
+
 import { SecondaryButton } from "@/components/buttons";
+import { socketAtom } from "@/context/socket";
+
 import Styles from "./button.module.scss";
 
 const LeaveButton = () => {

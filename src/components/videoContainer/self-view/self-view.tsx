@@ -1,8 +1,9 @@
 import { useAtomValue } from "jotai";
-import { sharedStreamAtom } from "@/context/stream";
 import { useEffect, useRef } from "react";
+
 import { Video } from "@/components/videoContainer/video";
 import { userNameAtom } from "@/context/name";
+import { sharedStreamAtom } from "@/context/stream";
 
 type props = {
   size: { width: number; height: number };

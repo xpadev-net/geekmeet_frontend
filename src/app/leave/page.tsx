@@ -1,11 +1,12 @@
 "use client";
 
 import { useSetAtom } from "jotai";
-import { localStreamAtom, sharedStreamAtom } from "@/context/stream";
-import { usersAtom } from "@/context/room";
-import { useRouter } from "next/navigation";
 import { useAtom } from "jotai/index";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+
+import { usersAtom } from "@/context/room";
+import { localStreamAtom, sharedStreamAtom } from "@/context/stream";
 
 export default function Leave() {
   const [sharedStream, setSharedStream] = useAtom(sharedStreamAtom);

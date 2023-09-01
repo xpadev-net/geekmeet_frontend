@@ -1,24 +1,26 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+
+import { UUID } from "@/@types/brands";
+import { PrimaryButton } from "@/components/buttons";
+import { BlurButton } from "@/components/controls/BlurButton";
+import { CameraButton } from "@/components/controls/CameraButton";
+import { MuteButton } from "@/components/controls/MuteButton";
+import { NoiseSuppressionButton } from "@/components/controls/NoiseButton";
+import { TextInput } from "@/components/input";
+import { userNameAtom } from "@/context/name";
+import { usersAtom } from "@/context/room";
+import { socketAtom } from "@/context/socket";
 import {
   localStreamAtom,
   originalStreamAtom,
   sharedStreamAtom,
 } from "@/context/stream";
-import { socketAtom } from "@/context/socket";
-import { UUID } from "@/@types/brands";
-import { useRouter } from "next/navigation";
-import { usersAtom } from "@/context/room";
-import { MuteButton } from "@/components/controls/MuteButton";
-import { CameraButton } from "@/components/controls/CameraButton";
+
 import Styles from "./page.module.scss";
-import { PrimaryButton } from "@/components/buttons";
-import { TextInput } from "@/components/input";
-import { userNameAtom } from "@/context/name";
-import { BlurButton } from "@/components/controls/BlurButton";
-import { NoiseSuppressionButton } from "@/components/controls/NoiseButton";
 
 export default function JoinRoom() {
   const [isLoading, setIsLoading] = useState(false);

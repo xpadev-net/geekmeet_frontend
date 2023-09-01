@@ -1,15 +1,16 @@
 "use client";
 
-import Styles from "./page.module.scss";
-
-import { Selector } from "@/components/selector";
+import { useAtomValue } from "jotai";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+
 import { RoomType } from "@/@types/types";
 import { PrimaryButton } from "@/components/buttons";
 import { EmailInputs } from "@/components/email-inputs/email-inputs";
-import { useAtomValue } from "jotai";
+import { Selector } from "@/components/selector";
 import { socketAtom } from "@/context/socket";
-import { useRouter } from "next/navigation";
+
+import Styles from "./page.module.scss";
 
 export default function CreateRoom() {
   const [roomType, setRoomType] = useState<RoomType>("normal");

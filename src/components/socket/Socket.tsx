@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
 import { useSetAtom } from "jotai";
-import { socketAtom } from "@/context/socket";
+import { useEffect } from "react";
 import { io } from "socket.io-client";
+
+import { socketAtom } from "@/context/socket";
 
 const Socket = () => {
   const setSocket = useSetAtom(socketAtom);

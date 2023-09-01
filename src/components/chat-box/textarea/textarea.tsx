@@ -1,8 +1,10 @@
-import { SecondaryButton } from "@/components/buttons";
-import { useState } from "react";
-import type { KeyboardEvent } from "react";
-import Styles from "./textarea.module.scss";
 import { SendFilledIcon } from "@xpadev-net/material-icons/send-filled";
+import type { KeyboardEvent } from "react";
+import { useState } from "react";
+
+import { SecondaryButton } from "@/components/buttons";
+
+import Styles from "./textarea.module.scss";
 
 type props = {
   onSubmit: (value: string) => void;

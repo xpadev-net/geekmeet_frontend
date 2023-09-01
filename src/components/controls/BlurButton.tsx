@@ -1,20 +1,22 @@
 "use client";
 
+import { VirtualBackgroundProcessor } from "@shiguredo/virtual-background";
+import { BlurOffFilledIcon } from "@xpadev-net/material-icons/blur-off-filled";
+import { BlurOnFilledIcon } from "@xpadev-net/material-icons/blur-on-filled";
 import { useAtomValue } from "jotai";
+import { useAtom } from "jotai/index";
+import { useState } from "react";
+
+import { SecondaryButton } from "@/components/buttons";
 import {
   isBlurAtom,
   localStreamAtom,
   originalStreamAtom,
   sharedStreamAtom,
 } from "@/context/stream";
-import { useState } from "react";
-import { SecondaryButton } from "@/components/buttons";
-import Styles from "./button.module.scss";
-import { BlurOnFilledIcon } from "@xpadev-net/material-icons/blur-on-filled";
-import { BlurOffFilledIcon } from "@xpadev-net/material-icons/blur-off-filled";
 import { addTrackToStream, removeTrackFromStream } from "@/utils/stream";
-import { useAtom } from "jotai/index";
-import { VirtualBackgroundProcessor } from "@shiguredo/virtual-background";
+
+import Styles from "./button.module.scss";
 
 const BlurButton = () => {
   const processor = useState(
@@ -51,7 +53,7 @@ const BlurButton = () => {
       const processed_video_track = await processor.startProcessing(track, {
         blurRadius: 15,
       });
-      processed_video_track.onended = (e) => {
+      processed_video_track.onended = () => {
         stopBlur(processed_video_track);
       };
       const [sharedVideoTrack] = sharedStream.getVideoTracks();

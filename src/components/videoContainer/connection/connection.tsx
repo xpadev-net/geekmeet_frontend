@@ -32,6 +32,7 @@ const WebRTCConnection = ({ target, name, type, size }: props) => {
     camera: true,
     microphone: true,
   });
+  console.log(remoteState);
 
   useEffect(() => {
     if (!socket || !videoRef.current || !sharedStream) {
@@ -71,7 +72,7 @@ const WebRTCConnection = ({ target, name, type, size }: props) => {
     const onTrackAdd = (e: TrackUpdateEvent) => {
       pc.addTrack(e.detail.track, sharedStream);
 
-      pc.createOffer().then(setDescription);
+      void pc.createOffer().then(setDescription);
     };
 
     sharedStream.addEventListener("_removetrack", onTrackRemove);
@@ -90,7 +91,7 @@ const WebRTCConnection = ({ target, name, type, size }: props) => {
     };
 
     if (type === "offer") {
-      pc.createOffer().then(setDescription);
+      void pc.createOffer().then(setDescription);
     }
 
     const onWebRTCSdp = (param: WebrtcSdpResponse) => {

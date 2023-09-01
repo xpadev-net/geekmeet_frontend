@@ -1,19 +1,21 @@
 "use client";
 
-import { useAtomValue, useAtom } from "jotai";
+import { NoiseSuppressionProcessor } from "@shiguredo/noise-suppression";
+import { NoiseAwareFilledIcon } from "@xpadev-net/material-icons/noise-aware-filled";
+import { NoiseControlOffFilledIcon } from "@xpadev-net/material-icons/noise-control-off-filled";
+import { useAtom, useAtomValue } from "jotai";
+import { useState } from "react";
+
+import { SecondaryButton } from "@/components/buttons";
 import {
   isNoiseSuppressionAtom,
   localStreamAtom,
   originalStreamAtom,
   sharedStreamAtom,
 } from "@/context/stream";
-import { useState } from "react";
-import { SecondaryButton } from "@/components/buttons";
-import Styles from "./button.module.scss";
-import { NoiseAwareFilledIcon } from "@xpadev-net/material-icons/noise-aware-filled";
-import { NoiseControlOffFilledIcon } from "@xpadev-net/material-icons/noise-control-off-filled";
 import { addTrackToStream, removeTrackFromStream } from "@/utils/stream";
-import { NoiseSuppressionProcessor } from "@shiguredo/noise-suppression";
+
+import Styles from "./button.module.scss";
 
 const NoiseSuppressionButton = () => {
   const processor = useState(
@@ -50,7 +52,7 @@ const NoiseSuppressionButton = () => {
     const track = originalStream.getAudioTracks()[0];
     try {
       const processed_audio_track = await processor.startProcessing(track);
-      processed_audio_track.onended = (e) => {
+      processed_audio_track.onended = () => {
         stopNoiseSuppression(processed_audio_track);
       };
       const [sharedAudioTrack] = sharedStream.getAudioTracks();

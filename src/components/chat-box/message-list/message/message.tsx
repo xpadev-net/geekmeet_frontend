@@ -1,4 +1,5 @@
 import { MessageItem } from "@/@types/chat";
+
 import Styles from "./message.module.scss";
 
 type props = {

@@ -6,7 +6,6 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { useEffect, useState } from "react";
 
 import { SecondaryButton } from "@/components/buttons";
-import { socketAtom } from "@/context/socket";
 import { localStreamAtom, stateAtom } from "@/context/stream";
 
 import Styles from "./button.module.scss";

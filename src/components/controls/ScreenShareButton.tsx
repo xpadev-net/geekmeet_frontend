@@ -1,17 +1,19 @@
 "use client";
 
+import { PresentToAllFilledIcon } from "@xpadev-net/material-icons/present-to-all-filled";
 import { useAtomValue } from "jotai";
+import { useAtom } from "jotai/index";
+import { useState } from "react";
+
+import { SecondaryButton } from "@/components/buttons";
 import {
   isScreenSharingAtom,
   localStreamAtom,
   sharedStreamAtom,
 } from "@/context/stream";
-import { useState } from "react";
-import { SecondaryButton } from "@/components/buttons";
-import Styles from "./button.module.scss";
-import { PresentToAllFilledIcon } from "@xpadev-net/material-icons/present-to-all-filled";
 import { addTrackToStream, removeTrackFromStream } from "@/utils/stream";
-import { useAtom } from "jotai/index";
+
+import Styles from "./button.module.scss";
 
 const ScreenShareButton = () => {
   const sharedStream = useAtomValue(sharedStreamAtom);
@@ -37,7 +39,7 @@ const ScreenShareButton = () => {
       video: true,
     });
     const [captureTrack] = stream.getVideoTracks();
-    captureTrack.onended = (e) => {
+    captureTrack.onended = () => {
       stopScreenSharing(captureTrack);
     };
     const [sharedVideoTrack] = sharedStream.getVideoTracks();

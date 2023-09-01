@@ -1,7 +1,8 @@
 "use client";
 
-import Styles from "./Video.module.scss";
 import { forwardRef, useState } from "react";
+
+import Styles from "./Video.module.scss";
 
 type props = {
   muted?: boolean;

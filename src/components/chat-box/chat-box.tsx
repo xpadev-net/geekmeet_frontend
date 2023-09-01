@@ -1,13 +1,15 @@
-import { TextArea } from "@/components/chat-box/textarea/textarea";
-import { MessageList } from "@/components/chat-box/message-list/message-list";
-import { useEffect } from "react";
-import { useAtomValue } from "jotai";
-import { socketAtom } from "@/context/socket";
-import { useAtom } from "jotai/index";
-import { chatAtom } from "@/context/chat";
-import { ChatResponse } from "@/@types/socket";
-import Styles from "./chat-box.module.scss";
 import { CloseFilledIcon } from "@xpadev-net/material-icons/close-filled";
+import { useAtomValue } from "jotai";
+import { useAtom } from "jotai/index";
+import { useEffect } from "react";
+
+import { ChatResponse } from "@/@types/socket";
+import { MessageList } from "@/components/chat-box/message-list/message-list";
+import { TextArea } from "@/components/chat-box/textarea/textarea";
+import { chatAtom } from "@/context/chat";
+import { socketAtom } from "@/context/socket";
+
+import Styles from "./chat-box.module.scss";
 
 const ChatBox = () => {
   const socket = useAtomValue(socketAtom);

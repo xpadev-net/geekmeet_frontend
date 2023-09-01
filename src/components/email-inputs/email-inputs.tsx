@@ -1,6 +1,7 @@
-import { useState, KeyboardEvent } from "react";
-import Styles from "./email-inputs.module.scss";
 import { DeleteOutlinedIcon } from "@xpadev-net/material-icons/delete-outlined";
+import { KeyboardEvent, useState } from "react";
+
+import Styles from "./email-inputs.module.scss";
 
 const Email = ({ email, onClick }: { email: string; onClick: () => void }) => {
   return (
@@ -20,7 +21,6 @@ const EmailInputs = ({ emails, onChange }: props) => {
   const [input, setInput] = useState("");
 
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    //@ts-ignore
     if (
       e.code === "Enter" &&
       !emails.includes(input) &&
