@@ -5,8 +5,17 @@
   width: 250px;
   gap: 16px;
   border-left: solid 1px var(--border-divider);
+  position: relative;
   &.hide {
     display: none;
+  }
+  .grubber {
+    position: absolute;
+    left: -5px;
+    width: 10px;
+    top: 0;
+    height: 100%;
+    cursor: col-resize;
   }
   .header {
     display: flex;
