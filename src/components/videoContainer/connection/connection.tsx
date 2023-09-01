@@ -153,7 +153,13 @@ const WebRTCConnection = ({ target, name, type, size }: props) => {
   }, [target, videoRef]);
   return (
     <>
-      <Video ref={videoRef} name={name} size={size} />
+      <Video
+        ref={videoRef}
+        name={name}
+        size={size}
+        state={remoteState}
+        userId={target}
+      />
     </>
   );
 };

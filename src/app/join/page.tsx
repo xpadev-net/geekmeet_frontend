@@ -11,6 +11,7 @@ import { CameraButton } from "@/components/controls/CameraButton";
 import { MuteButton } from "@/components/controls/MuteButton";
 import { NoiseSuppressionButton } from "@/components/controls/NoiseButton";
 import { TextInput } from "@/components/input";
+import { Video } from "@/components/videoContainer/video";
 import { userNameAtom } from "@/context/name";
 import { usersAtom } from "@/context/room";
 import { socketAtom } from "@/context/socket";
@@ -18,6 +19,7 @@ import {
   localStreamAtom,
   originalStreamAtom,
   sharedStreamAtom,
+  stateAtom,
 } from "@/context/stream";
 
 import Styles from "./page.module.scss";
@@ -34,6 +36,7 @@ export default function JoinRoom() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const roomId = typeof location !== "undefined" && location?.hash.slice(1);
   const router = useRouter();
+  const localState = useAtomValue(stateAtom);
 
   const requestMediaStream = async () => {
     if (!navigator.mediaDevices.getUserMedia || !videoRef.current) return;
@@ -97,12 +100,13 @@ export default function JoinRoom() {
       <div className={Styles.container}>
         <div className={Styles.view}>
           <div className={Styles.videoWrapper}>
-            <video
-              className={Styles.video}
+            <Video
               ref={videoRef}
-              playsInline={true}
-              autoPlay={true}
               muted={true}
+              name={""}
+              size={{ width: "100%", height: "100%" }}
+              state={localState}
+              userId={name}
             />
             {!stream && (
               <div className={Styles.overlay}>

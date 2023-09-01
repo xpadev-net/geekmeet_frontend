@@ -1,17 +1,22 @@
 "use client";
 
+import { MicOffFilledIcon } from "@xpadev-net/material-icons/mic-off-filled";
 import { forwardRef, useState } from "react";
+
+import { UserImg } from "@/components/user-img";
 
 import Styles from "./Video.module.scss";
 
 type props = {
   muted?: boolean;
   name: string;
-  size: { width: number; height: number };
+  userId: string;
+  size: { width: number | string; height: number | string };
+  state: { camera: boolean; microphone: boolean };
 };
 
 const Video = forwardRef<HTMLVideoElement, props>(function Video(
-  { muted, name, size },
+  { muted, name, size, state, userId },
   ref,
 ) {
   const [isFocus, setIsFocus] = useState(false);
@@ -21,8 +26,12 @@ const Video = forwardRef<HTMLVideoElement, props>(function Video(
   };
 
   return (
-    <div className={Styles.item} style={size} onClick={toggleFocus}>
-      <div className={`${Styles.container} ${isFocus && Styles.focus}`}>
+    <div
+      className={`${Styles.item} ${isFocus && Styles.focus}`}
+      style={size}
+      onClick={toggleFocus}
+    >
+      <div className={Styles.container}>
         <span className={Styles.name}>{name}</span>
         <video
           playsInline={true}
@@ -31,6 +40,12 @@ const Video = forwardRef<HTMLVideoElement, props>(function Video(
           className={Styles.video}
           ref={ref}
         />
+        {!state.microphone && <MicOffFilledIcon className={Styles.mutedIcon} />}
+        {!state.camera && (
+          <div className={Styles.camera}>
+            <UserImg userId={userId} />
+          </div>
+        )}
       </div>
     </div>
   );
