@@ -1,12 +1,14 @@
 "use client";
 
-import Styles from "./page.module.scss";
 import { ArrowForwardFilledIcon } from "@xpadev-net/material-icons/arrow-forward-filled";
 import Link from "next/link";
-import { SecondaryButton } from "@/components/buttons";
-import { useState } from "react";
-import type { KeyboardEvent } from "react";
 import { useRouter } from "next/navigation";
+import type { KeyboardEvent } from "react";
+import { useState } from "react";
+
+import { SecondaryButton } from "@/components/buttons";
+
+import Styles from "./page.module.scss";
 
 export default function Home() {
   const [code, setCode] = useState<string>("");

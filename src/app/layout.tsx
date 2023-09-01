@@ -1,5 +1,6 @@
 import "./globals.scss";
 import "./variable.scss";
+
 import { Socket } from "@/components/socket/Socket";
 
 export default function RootLayout({
