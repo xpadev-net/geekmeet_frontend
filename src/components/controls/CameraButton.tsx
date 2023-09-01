@@ -1,18 +1,19 @@
 "use client";
 
-import { useAtomValue, useSetAtom } from "jotai";
-import { localStreamAtom, stateAtom } from "@/context/stream";
-import { useEffect, useState } from "react";
 import { VideocamFilledIcon } from "@xpadev-net/material-icons/videocam-filled";
 import { VideocamOffFilledIcon } from "@xpadev-net/material-icons/videocam-off-filled";
+import { useAtomValue, useSetAtom } from "jotai";
+import { useEffect, useState } from "react";
+
 import { SecondaryButton } from "@/components/buttons";
-import Styles from "./button.module.scss";
 import { socketAtom } from "@/context/socket";
+import { localStreamAtom, stateAtom } from "@/context/stream";
+
+import Styles from "./button.module.scss";
 
 const CameraButton = () => {
   const stream = useAtomValue(localStreamAtom);
   const setState = useSetAtom(stateAtom);
-  const socket = useAtomValue(socketAtom);
   const [isDisabled, setIsDisabled] = useState<boolean>(
     stream?.getVideoTracks().reduce((pv, val) => pv && !val.enabled, true) ??
       false,
@@ -25,7 +26,7 @@ const CameraButton = () => {
   if (!stream) return;
   const muteHandler = () => {
     setIsDisabled(!isDisabled);
-    setState((p) => ({ ...p, camera: !isDisabled }));
+    setState((p) => ({ ...p, camera: isDisabled }));
   };
   return (
     <SecondaryButton onClick={muteHandler} className={Styles.button}>

@@ -1,15 +1,16 @@
 import { useAtomValue } from "jotai";
 import { useEffect, useRef, useState } from "react";
-import { socketAtom } from "@/context/socket";
-import { sharedStreamAtom, stateAtom } from "@/context/stream";
-import { PeerConnectionConfig } from "@/context/config";
+
+import { TrackUpdateEvent } from "@/@types/global";
 import {
   StateChangeResponse,
   WebrtcIceResponse,
   WebrtcSdpResponse,
 } from "@/@types/socket";
 import { Video } from "@/components/videoContainer/video";
-import { TrackUpdateEvent } from "@/@types/global";
+import { PeerConnectionConfig } from "@/context/config";
+import { socketAtom } from "@/context/socket";
+import { sharedStreamAtom, stateAtom } from "@/context/stream";
 
 type props = {
   target: string;
@@ -104,6 +105,7 @@ const WebRTCConnection = ({ target, name, type, size }: props) => {
       } else if (param.description.type === "answer") {
         pc.setRemoteDescription(param.description).catch(errorHandler);
       }
+      socket.emit("stateChange", state);
     };
     const iceQueue: WebrtcIceResponse[] = [];
     const iceHandler = (param: WebrtcIceResponse) => {
@@ -125,7 +127,6 @@ const WebRTCConnection = ({ target, name, type, size }: props) => {
       if (state.src !== target) return;
       setRemoteState(state.data);
     };
-    socket.emit("stateChange", state);
 
     socket.on("webrtcIce", iceHandler);
 
@@ -135,6 +136,7 @@ const WebRTCConnection = ({ target, name, type, size }: props) => {
 
     return () => {
       socket.off("webrtcSdp", onWebRTCSdp);
+      socket.off("webrtcIce", iceHandler);
       socket.off("stateChange", onStateChange);
       sharedStream.removeEventListener("_removetrack", onTrackRemove);
       sharedStream.removeEventListener("_addtrack", onTrackAdd);
@@ -148,7 +150,6 @@ const WebRTCConnection = ({ target, name, type, size }: props) => {
       pc.close();
     };
   }, [target, videoRef]);
-  console.log("remote", remoteState);
   return (
     <>
       <Video ref={videoRef} name={name} size={size} />

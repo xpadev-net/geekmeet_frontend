@@ -1,16 +1,18 @@
 "use client";
 
 import { useAtom, useAtomValue } from "jotai";
-import { socketAtom } from "@/context/socket";
-import { useEffect } from "react";
-import { localStreamAtom, stateAtom } from "@/context/stream";
 import { useRouter } from "next/navigation";
-import { usersAtom } from "@/context/room";
+import { useEffect } from "react";
+
 import { ConnectingResponse, LeaveResponse } from "@/@types/socket";
-import { Controls } from "@/components/controls";
-import Styles from "./page.module.scss";
-import { VideoContainer } from "@/components/videoContainer/VideoContainer";
 import { ChatBox } from "@/components/chat-box";
+import { Controls } from "@/components/controls";
+import { VideoContainer } from "@/components/videoContainer/VideoContainer";
+import { usersAtom } from "@/context/room";
+import { socketAtom } from "@/context/socket";
+import { localStreamAtom, stateAtom } from "@/context/stream";
+
+import Styles from "./page.module.scss";
 
 export default function Room() {
   const socket = useAtomValue(socketAtom);
@@ -44,7 +46,7 @@ export default function Room() {
 
   useEffect(() => {
     socket?.emit("stateChange", state);
-  }, [state]);
+  }, [state, socket]);
   if (!socket || !mediaStream || !users) {
     return <></>;
   }
