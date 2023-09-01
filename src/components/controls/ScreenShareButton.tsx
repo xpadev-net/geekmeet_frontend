@@ -1,5 +1,6 @@
 "use client";
 
+import { CancelPresentationFilledIcon } from "@xpadev-net/material-icons/cancel-presentation-filled";
 import { PresentToAllFilledIcon } from "@xpadev-net/material-icons/present-to-all-filled";
 import { useAtomValue } from "jotai";
 import { useAtom } from "jotai/index";
@@ -57,7 +58,11 @@ const ScreenShareButton = () => {
   };
   return (
     <SecondaryButton onClick={shareHandler} className={Styles.button}>
-      <PresentToAllFilledIcon className={Styles.icon} />
+      {isScreenSharing ? (
+        <CancelPresentationFilledIcon className={Styles.icon} />
+      ) : (
+        <PresentToAllFilledIcon className={Styles.icon} />
+      )}
     </SecondaryButton>
   );
 };
