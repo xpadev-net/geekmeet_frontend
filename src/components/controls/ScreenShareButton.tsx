@@ -2,8 +2,7 @@
 
 import { CancelPresentationFilledIcon } from "@xpadev-net/material-icons/cancel-presentation-filled";
 import { PresentToAllFilledIcon } from "@xpadev-net/material-icons/present-to-all-filled";
-import { useAtomValue } from "jotai";
-import { useAtom } from "jotai/index";
+import { useAtom, useAtomValue } from "jotai";
 import { useState } from "react";
 
 import { SecondaryButton } from "@/components/buttons";
@@ -11,6 +10,7 @@ import {
   isScreenSharingAtom,
   localStreamAtom,
   sharedStreamAtom,
+  stateAtom,
 } from "@/context/stream";
 import { addTrackToStream, removeTrackFromStream } from "@/utils/stream";
 
@@ -23,6 +23,8 @@ const ScreenShareButton = () => {
   const [captureTrack, setCaptureTrack] = useState<
     MediaStreamTrack | undefined
   >(undefined);
+  const [isLastCameraEnabled, setIsLastCameraEnabled] = useState(false);
+  const [localState, setLocalState] = useAtom(stateAtom);
   if (!sharedStream) return;
   const stopScreenSharing = (captureTrack?: MediaStreamTrack) => {
     if (captureTrack) {
@@ -34,6 +36,7 @@ const ScreenShareButton = () => {
     const [videoTrack] = localStream.getVideoTracks();
     addTrackToStream(sharedStream, videoTrack);
     setIsScreenSharing(false);
+    setLocalState((p) => ({ ...p, camera: isLastCameraEnabled }));
   };
   const startScreenSharing = async () => {
     const stream = await navigator.mediaDevices.getDisplayMedia({
@@ -48,6 +51,8 @@ const ScreenShareButton = () => {
     addTrackToStream(sharedStream, captureTrack);
     setCaptureTrack(captureTrack);
     setIsScreenSharing(true);
+    setIsLastCameraEnabled(localState.camera);
+    setLocalState((p) => ({ ...p, camera: true }));
   };
   const shareHandler = () => {
     if (isScreenSharing) {
