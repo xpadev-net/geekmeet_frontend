@@ -159,6 +159,8 @@ const WebRTCConnection = ({ target, name, type, size }: props) => {
       sharedStream.removeEventListener("_removetrack", onTrackRemove);
       sharedStream.removeEventListener("_addtrack", onTrackAdd);
       clearInterval(speakingInterval);
+      analyser.disconnect();
+      void context.close();
       try {
         remoteStream?.getTracks().forEach((track) => {
           track.stop();

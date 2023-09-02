@@ -37,6 +37,8 @@ const SelfView = ({ size }: props) => {
 
     return () => {
       clearInterval(speakingInterval);
+      analyser.disconnect();
+      void context.close();
     };
   }, [sharedStream, videoRef]);
   return (
