@@ -13,10 +13,11 @@ type props = {
   userId: string;
   size: { width: number | string; height: number | string };
   state: { camera: boolean; microphone: boolean };
+  isSpeaking?: boolean;
 };
 
 const Video = forwardRef<HTMLVideoElement, props>(function Video(
-  { muted, name, size, state, userId },
+  { muted, name, size, state, userId, isSpeaking },
   ref,
 ) {
   const [isFocus, setIsFocus] = useState(false);
@@ -27,7 +28,9 @@ const Video = forwardRef<HTMLVideoElement, props>(function Video(
 
   return (
     <div
-      className={`${Styles.item} ${isFocus && Styles.focus}`}
+      className={`${Styles.item} ${isFocus && Styles.focus} ${
+        isSpeaking && Styles.isSpeaking
+      }`}
       style={size}
       onClick={toggleFocus}
     >

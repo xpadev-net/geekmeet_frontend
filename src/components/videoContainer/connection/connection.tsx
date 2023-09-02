@@ -32,13 +32,24 @@ const WebRTCConnection = ({ target, name, type, size }: props) => {
     camera: true,
     microphone: true,
   });
-  console.log(remoteState);
+  const [isSpeaking, setIsSpeaking] = useState(false);
 
   useEffect(() => {
     if (!socket || !videoRef.current || !sharedStream) {
       return;
     }
+    const context = new AudioContext();
+    const analyser = context.createAnalyser();
+    const frequencies = new Uint8Array(analyser.frequencyBinCount);
     const pc = new RTCPeerConnection(PeerConnectionConfig);
+    const getByteFrequencyDataAverage = () => {
+      analyser.getByteFrequencyData(frequencies);
+      return (
+        frequencies.reduce((pv, current) => {
+          return pv + current;
+        }) / analyser.frequencyBinCount
+      );
+    };
     let remoteStream: MediaStream;
     pc.onicecandidate = (event) => {
       if (event.candidate) {
@@ -56,6 +67,8 @@ const WebRTCConnection = ({ target, name, type, size }: props) => {
         } else {
           remoteStream = new MediaStream([event.track]);
         }
+
+        context.createMediaStreamSource(remoteStream).connect(analyser);
         videoRef.current.srcObject = remoteStream;
       }
     };
@@ -135,12 +148,17 @@ const WebRTCConnection = ({ target, name, type, size }: props) => {
 
     socket.on("stateChange", onStateChange);
 
+    const speakingInterval = window.setInterval(() => {
+      setIsSpeaking(getByteFrequencyDataAverage() > 128);
+    }, 100);
+
     return () => {
       socket.off("webrtcSdp", onWebRTCSdp);
       socket.off("webrtcIce", iceHandler);
       socket.off("stateChange", onStateChange);
       sharedStream.removeEventListener("_removetrack", onTrackRemove);
       sharedStream.removeEventListener("_addtrack", onTrackAdd);
+      clearInterval(speakingInterval);
       try {
         remoteStream?.getTracks().forEach((track) => {
           track.stop();
@@ -159,6 +177,7 @@ const WebRTCConnection = ({ target, name, type, size }: props) => {
         size={size}
         state={remoteState}
         userId={target}
+        isSpeaking={isSpeaking}
       />
     </>
   );

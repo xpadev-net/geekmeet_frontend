@@ -22,6 +22,9 @@
       }
     }
   }
+  &.isSpeaking {
+    outline: var(--button-active);
+  }
   .container {
     aspect-ratio: 16/9;
     display: grid;
