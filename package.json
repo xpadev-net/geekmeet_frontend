@@ -31,7 +31,7 @@
     "jdenticon": "^3.2.0",
     "jotai": "^2.2.3",
     "lint-staged": "^13.2.3",
-    "next": "13.4.12",
+    "next": "13.5.0",
     "prettier": "^3.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
