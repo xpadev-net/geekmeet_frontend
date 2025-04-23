@@ -1,4 +1,4 @@
-ARG NODE_VERSION=18-slim
+ARG NODE_VERSION=22-alpine
 
 # Build phase
 FROM node:$NODE_VERSION AS builder
