@@ -1,15 +1,15 @@
-ARG NODE_VERSION=22-alpine
+ARG NODE_VERSION=18-slim
 
 # Build phase
 FROM node:$NODE_VERSION AS builder
 WORKDIR /app
 
-# Prepare node_modules
-COPY ./package.json ./
-COPY ./pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml ./
 RUN npm install -g pnpm@9
 RUN pnpm install --frozen-lockfile
 
+# Prepare node_modules
+COPY ./ ./
 
 # Run phase
 FROM node:$NODE_VERSION AS runner
