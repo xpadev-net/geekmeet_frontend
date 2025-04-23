@@ -5,7 +5,8 @@ FROM node:$NODE_VERSION AS builder
 WORKDIR /app
 
 # Prepare node_modules
-COPY ./ ./
+COPY ./package.json ./
+COPY ./pnpm-lock.yaml ./
 RUN npm install -g pnpm@9
 RUN pnpm install --frozen-lockfile
 
