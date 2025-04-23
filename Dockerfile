@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Prepare node_modules
 COPY ./ ./
-RUN npm install -g pnpm
+RUN npm install -g pnpm@9
 RUN pnpm install --frozen-lockfile
 
 
