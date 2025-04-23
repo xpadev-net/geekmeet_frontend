@@ -18,5 +18,16 @@ WORKDIR /app
 
 COPY --from=builder /app ./
 
+COPY ./docker/.env.placeholder ./.env
+
+RUN npx prisma generate
+RUN npm run build
+
+COPY ./docker/env-replacer.sh ./
+
+RUN chmod +x ./env-replacer.sh
+RUN chmod +x ./start.sh
+ENTRYPOINT [ "/app/env-replacer.sh" ]
+
 # Copy artifacts
-CMD ["bash","./start.sh"]
+CMD ["./start.sh"]
